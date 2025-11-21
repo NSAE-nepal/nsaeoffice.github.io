@@ -1,0 +1,588 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.framework.id": "astro",
+  "frontMatter.preview.host": "http://localhost:4321",
+  "frontMatter.content.publicFolder": {
+    "path": "src/assets",
+    "relative": true
+  },
+  "frontMatter.global.timezone": "Asia/Kathmandu",
+  "frontMatter.content.pageFolders": [
+    {
+      "title": "blog",
+      "path": "[[workspace]]/src/content/blog"
+    }
+  ],
+  "frontMatter.data.files": [
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "[[workspace]]/src/content/faq.json",
+      "singleEntry": false,
+      "labelField": "question",
+      "fileType": "json",
+      "schema": {
+        "title": "FAQ",
+        "type": "object",
+        "required": ["id", "question", "answer"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "question": {
+            "type": "string",
+            "title": "Question"
+          },
+          "answer": {
+            "type": "string",
+            "title": "Answer"
+          }
+        }
+      }
+    },
+    {
+      "id": "contacts",
+      "title": "Contacts",
+      "file": "[[workspace]]/src/content/contacts.json",
+      "labelField": "id",
+      "fileType": "json",
+      "singleEntry": false,
+      "schema": {
+        "title": "Contacts",
+        "type": "object",
+        "required": ["id"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "address": {
+            "type": "string",
+            "title": "Address"
+          },
+          "addressLink": {
+            "type": "string",
+            "title": "Address Link",
+
+            "description": "E.g., Google Maps link"
+          },
+          "phoneNumbers": {
+            "type": "array",
+            "title": "Phone Numbers",
+
+            "items": {
+              "type": "string"
+            }
+          },
+          "emails": {
+            "type": "array",
+            "title": "Emails",
+
+            "items": {
+              "type": "string"
+            }
+          },
+          "socials": {
+            "type": "object",
+            "title": "Social Links",
+
+            "properties": {
+              "x": {
+                "type": "object",
+                "title": "X",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "linkedin": {
+                "type": "object",
+                "title": "LinkedIn",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "facebook": {
+                "type": "object",
+                "title": "Facebook",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "youtube": {
+                "type": "object",
+                "title": "YouTube",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "bluesky": {
+                "type": "object",
+                "title": "Bluesky",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "categories",
+      "title": "Categories",
+      "file": "[[workspace]]/src/content/categories.json",
+      "singleEntry": false,
+      "labelField": "title",
+      "fileType": "json",
+      "schema": {
+        "title": "Categories",
+        "type": "object",
+        "required": ["id", "title"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description"
+          }
+        }
+      }
+    },
+    {
+      "id": "donate",
+      "title": "Donate",
+      "file": "[[workspace]]/src/content/donate.json",
+      "singleEntry": false,
+      "labelField": "id",
+      "fileType": "json",
+      "schema": {
+        "title": "Donate",
+        "type": "object",
+        "required": ["id", "heroImage", "impactAreas", "bankDetails"],
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID"
+          },
+          "heroImage": {
+            "type": "string",
+            "title": "Hero Image",
+            "description": "Path to the image file"
+          },
+
+          "impactAreas": {
+            "type": "array",
+            "title": "Impact Areas",
+            "items": {
+              "type": "object",
+              "required": ["title", "icon", "description"],
+              "properties": {
+                "title": {
+                  "type": "string",
+                  "title": "Title"
+                },
+                "icon": {
+                  "type": "string",
+                  "title": "Icon Name"
+                },
+                "description": {
+                  "type": "string",
+                  "title": "Description"
+                }
+              }
+            }
+          },
+          "bankDetails": {
+            "type": "object",
+            "title": "Bank Details",
+            "required": [
+              "bankName",
+              "accountName",
+              "accountNumber",
+              "branch",
+              "accountQRCode"
+            ],
+            "properties": {
+              "bankName": {
+                "type": "string",
+                "title": "Bank Name"
+              },
+              "accountName": {
+                "type": "string",
+                "title": "Account Name"
+              },
+              "accountNumber": {
+                "type": "string",
+                "title": "Account Number"
+              },
+              "branch": {
+                "type": "string",
+                "title": "Branch"
+              },
+              "swift": {
+                "type": "string",
+                "title": "SWIFT Code"
+              },
+              "accountQRCode": {
+                "type": "string",
+                "title": "QR Code Image",
+                "description": "Path to the QR code image file"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "frontMatter.data.folders": [
+    {
+      "id": "committee",
+      "path": "[[workspace]]/src/content/committee",
+      "singleEntry": true,
+      "enableFileCreation": true,
+      "fileType": "json",
+      "schema": {
+        "type": "object",
+        "required": ["membership", "position", "name"],
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title"
+          },
+          "draft": {
+            "title": "draft",
+            "type": "boolean",
+            "default": false
+          },
+          "committeeIteration": {
+            "type": "number",
+            "title": "Committee Iteration",
+            "description": "E.g., 1 , 2, 3...",
+            "numberOptions": {
+              "min": 1,
+              "step": 1,
+              "max": 40
+            }
+          },
+          "committeeMembers": {
+            "type": "array",
+            "title": "Committee Members",
+            "items": {
+              "type": "object",
+              "properties": {
+                "membership": {
+                  "type": "string",
+                  "title": "Membership",
+                  "enum": [
+                    "life-member",
+                    "general-member",
+                    "honorary-member",
+                    "student-member",
+                    "associate-member",
+                    "corporate-member"
+                  ]
+                },
+                "position": {
+                  "type": "string",
+                  "title": "Position",
+                  "enum": [
+                    "president",
+                    "vice-president",
+                    "secretary",
+                    "joint-secretary",
+                    "treasurer",
+                    "member",
+                    "corporate-member"
+                  ]
+                },
+                "name": {
+                  "type": "string",
+                  "title": "Name"
+                },
+                "prefix": {
+                  "type": "array",
+                  "title": "Prefix",
+                  "items": {
+                    "type": "string",
+                    "enum": ["er", "dr", "prof_dr", "mr", "ms"]
+                  }
+                },
+                "profileImage": {
+                  "type": "string",
+                  "title": "Profile Image"
+                },
+                "portfolio": {
+                  "type": "string",
+                  "title": "Portfolio",
+                  "description": "Website or portfolio link"
+                },
+                "neaRegNo": {
+                  "type": "string",
+                  "title": "NEA Registration Number"
+                },
+                "necRegNo": {
+                  "type": "string",
+                  "title": "NEC Registration Number"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "authors",
+      "path": "[[workspace]]/src/content/authors",
+      "singleEntry": true,
+      "enableFileCreation": true,
+      "fileType": "json",
+      "schema": {
+        "type": "object",
+        "required": ["name"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "position": {
+            "type": "string",
+            "title": "Position"
+          },
+          "prefix": {
+            "type": "string",
+            "title": "Prefix",
+            "enum": ["er", "dr", "prof_dr", "mr", "ms"]
+          },
+          "profileImage": {
+            "type": "string",
+            "title": "Profile Image"
+          },
+          "company": {
+            "type": "string",
+            "title": "Company"
+          },
+          "neaRegNo": {
+            "type": "string",
+            "title": "Company"
+          },
+          "necRegNo": {
+            "type": "string",
+            "title": "Company"
+          },
+          "bio": {
+            "type": "string",
+            "title": "Bio"
+          },
+          "portfolio": {
+            "type": "string",
+            "title": "Portfolio",
+            "description": "Website or portfolio link"
+          },
+          "socials": {
+            "type": "object",
+            "title": "Social Links",
+            "properties": {
+              "x": {
+                "type": "object",
+                "title": "X",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "linkedin": {
+                "type": "object",
+                "title": "LinkedIn",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "facebook": {
+                "type": "object",
+                "title": "Facebook",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "youtube": {
+                "type": "object",
+                "title": "YouTube",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              },
+              "bluesky": {
+                "type": "object",
+                "title": "Bluesky",
+                "properties": {
+                  "handle": {
+                    "type": "string",
+                    "title": "Handle",
+                    "description": "Without @"
+                  },
+                  "link": {
+                    "type": "string",
+                    "title": "URL",
+                    "description": "Full URL to profile"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "blog",
+      "pageBundle": false,
+      "previewPath": "'blog'",
+      "filePrefix": null,
+      "clearEmpty": true,
+      "fields": [
+        {
+          "title": "title",
+          "name": "title",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "description",
+          "name": "description",
+          "required": false,
+          "type": "string",
+          "description": "For SEO purposes"
+        },
+        {
+          "title": "subtitle",
+          "name": "subtitle",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "title": "pubDate",
+          "name": "pubDate",
+          "type": "datetime",
+          "required": true
+        },
+        {
+          "title": "updatedDate",
+          "name": "updatedDate",
+          "required": false,
+          "type": "datetime",
+          "default": "{{now}"
+        },
+        {
+          "title": "heroImage",
+          "name": "heroImage",
+          "type": "image"
+        },
+        {
+          "title": "heroImageAlt",
+          "name": "heroImageAlt",
+          "type": "string",
+          "required": true
+        },
+        {
+          "title": "draft",
+          "name": "draft",
+          "type": "draft"
+        },
+        {
+          "title": "featured",
+          "name": "featured",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    }
+  ]
+}

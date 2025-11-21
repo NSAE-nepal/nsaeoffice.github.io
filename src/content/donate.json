@@ -2,8 +2,6 @@
   {
     "id": "main",
     "heroImage": "https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop",
-    "title": "Empower the <br /> <span class='text-white/80'>Engineers of Tomorrow</span>",
-    "description": "Your contribution helps us advance agricultural engineering in Nepal through scholarships, research, and community development.",
     "impactAreas": [
       {
         "title": "Student Scholarships",

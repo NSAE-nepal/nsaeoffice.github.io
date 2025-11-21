@@ -214,7 +214,7 @@ const committeeCollection = defineCollection({
 
 // === FAQ Collection ===
 const faqCollection = defineCollection({
-  loader: file("src/content/faq/faq.json"),
+  loader: file("src/content/faq.json"),
   schema: z.object({
     id: z.string(),
     question: z.string(),
@@ -237,12 +237,11 @@ const donateCollection = defineCollection({
     z.object({
       id: z.string(),
       heroImage: z.string(),
-      title: z.string(), // HTML string allowed
-      description: z.string(),
+
       impactAreas: z.array(
         z.object({
           title: z.string(),
-          icon: z.string(), // We store the string name (e.g., "School")
+          icon: z.string(),
           description: z.string(),
         })
       ),
@@ -259,7 +258,7 @@ const donateCollection = defineCollection({
 
 // === Contacts Collection ===
 const contactsCollection = defineCollection({
-  loader: file("src/content/contacts/contacts.json"),
+  loader: file("src/content/contacts.json"),
   schema: z.object({
     id: z.string(),
     address: z.string().optional(),
