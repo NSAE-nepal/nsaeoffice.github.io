@@ -15,73 +15,82 @@ const allPublishedPosts = (
 
 const featuredPosts = allPublishedPosts.filter(({ data }) => data.featured);
 const nonFeaturedPosts = allPublishedPosts.filter(({ data }) => !data.featured);
+
+let mainFeature = null;
+let sideListPosts = [];
+
+if (featuredPosts.length > 0) {
+  mainFeature = featuredPosts[0];
+  const remainingFeatured = featuredPosts.slice(1);
+  const combinedPool = [...remainingFeatured, ...nonFeaturedPosts];
+  sideListPosts = combinedPool.slice(0, 3);
+} else {
+  mainFeature = null;
+  sideListPosts = nonFeaturedPosts.slice(0, 3);
+}
 ---
 
-<section class="py-16 md:py-24">
-  <div
-    class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6"
-  >
-    <div class="space-y-4">
-      <Badge
-        variant="secondary"
-        size="sm"
-        class="font-mono text-xs uppercase tracking-widest"
-      >
-        The Journal
-      </Badge>
-      <h2 class="font-sans text-4xl md:text-5xl font-medium tracking-tighter">
-        Latest Updates
-      </h2>
-    </div>
-
-    <a
-      href="/blog/page/1"
-      class="group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
-    >
-      View All Archives
-      <ArrowRight
-        class="size-4 transition-transform group-hover:translate-x-1"
-      />
-    </a>
-  </div>
-  <div class="grid grid-cols-2 gap-4">
-    <div
-      class="col-span-2 lg:col-span-1 bg-secondary p-4 rounded-2xl border border-border/50"
-    >
-      {
-        featuredPosts.length > 0 && (
-          <div class="grid gap-8 lg:gap-10 xl:gap-18">
-            {featuredPosts.map((post) => (
-              <ClickableCard href={`/blog/${post.id}/`}>
-                <BlogFeaturedCard {...post} />
-              </ClickableCard>
-            ))}
-          </div>
-        )
-      }
-    </div>
-    <div class="col-span-2 lg:col-span-1">
-      {
-        nonFeaturedPosts.map((post) => (
-          <ClickableCard
-            class="group relative border-b border-border last:border-b-0 hover:bg-secondary transition-colors duration-300 overflow-hidden"
-            href={`/blog/${post.id}/`}
+{
+  allPublishedPosts.length > 0 && (
+    <section class="py-16 md:py-24">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
+        <div class="space-y-4">
+          <Badge
+            variant="secondary"
+            size="sm"
+            class="font-mono text-xs uppercase tracking-widest"
           >
-            <BlogCard {...post} />
-            {/* Refined the hover image effect */}
-            {post.data.heroImage && (
-              <Image
-                inferSize
-                class={
-                  "absolute top-0 right-0 h-full w-1/4 object-cover z-0 hidden group-hover:block opacity-40 grayscale group-hover:grayscale-0 transition-opacity duration-500"
-                }
-                src={post.data.heroImage}
-                alt={post.data.heroImageAlt ?? ""}
-              />
-            )}
-          </ClickableCard>
-        ))
-      }
-    </div>
-  </div>
-</section>
+            The Journal
+          </Badge>
+          <h2 class="font-sans text-4xl md:text-5xl font-medium tracking-tighter">
+            Latest Updates
+          </h2>
+        </div>
+
+        <a
+          href="/blog/page/1"
+          class="group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+        >
+          View All Archives
+          <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
+        </a>
+      </div>
+      <div class="grid grid-cols-2 gap-4">
+        {mainFeature && (
+          <div class="col-span-2 lg:col-span-1 bg-secondary p-4 rounded-2xl border border-border/50">
+            <ClickableCard href={`/blog/${mainFeature.id}/`}>
+              <BlogFeaturedCard {...mainFeature} />
+            </ClickableCard>
+          </div>
+        )}
+
+        <div
+          class:list={[
+            "col-span-2",
+            mainFeature ? "lg:col-span-1" : "grid grid-cols-1  gap-4",
+          ]}
+        >
+          {sideListPosts.map((post) => (
+            <ClickableCard
+              class="group relative border-b border-border last:border-b-0 hover:bg-secondary transition-colors duration-300 overflow-hidden"
+              href={`/blog/${post.id}/`}
+            >
+              <BlogCard {...post} />
+              {/* Refined the hover image effect */}
+              {post.data.heroImage && (
+                <Image
+                  inferSize
+                  class={
+                    "absolute top-0 right-0 h-full w-1/4 object-cover z-0 hidden group-hover:block opacity-40 grayscale group-hover:grayscale-0 transition-opacity duration-500"
+                  }
+                  src={post.data.heroImage}
+                  alt={post.data.heroImageAlt ?? ""}
+                />
+              )}
+            </ClickableCard>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

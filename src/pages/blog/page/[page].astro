@@ -10,6 +10,7 @@ import type { GetStaticPaths, Page } from "astro";
 import { PAGE_SIZE } from "@/consts";
 import Pagination from "@/components/astro/Pagination.astro";
 import type { CollectionEntry } from "astro:content";
+import MoodEmpty from "@tabler/icons/outline/mood-empty.svg";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPublishedPosts = (
@@ -77,33 +78,48 @@ const pageDescription =
     >
       All Posts
     </h2>
-    <div class="grid grid-cols-2 gap-8">
-      {
-        page.data.map((post) => (
-          <ClickableCard
-            class="group relative col-span-2 lg:col-span-1 border-b border-border last:border-b-0 lg:[&:nth-last-child(2)]:border-b-0 hover:bg-secondary/20 transition-colors"
-            href={`/blog/${post.id}/`}
-          >
-            <BlogCard {...post} />
-            {post.data.heroImage && (
-              <Image
-                inferSize
-                class={
-                  "absolute top-0 right-0 h-full w-1/4 object-cover z-0 hidden group-hover:block opacity-40 grayscale group-hover:grayscale-0 transition-all duration-500"
-                }
-                src={post.data.heroImage}
-                alt={post.data.heroImageAlt ?? ""}
-              />
-            )}
-          </ClickableCard>
-        ))
-      }
-    </div>
-    <div class="flex justify-center mt-16">
-      <Pagination
-        url={page.url}
-        class="font-mono text-sm uppercase tracking-widest"
-      />
-    </div>
+    {
+      page.data.length > 0 ? (
+        <>
+          <div class="grid grid-cols-2 gap-8">
+            {page.data.map((post) => (
+              <ClickableCard
+                class="group relative col-span-2 lg:col-span-1 border-b border-border last:border-b-0 lg:[&:nth-last-child(2)]:border-b-0 hover:bg-secondary/20 transition-colors"
+                href={`/blog/${post.id}/`}
+              >
+                <BlogCard {...post} />
+                {post.data.heroImage && (
+                  <Image
+                    inferSize
+                    class={
+                      "absolute top-0 right-0 h-full w-1/4 object-cover z-0 hidden group-hover:block opacity-40 grayscale group-hover:grayscale-0 transition-all duration-500"
+                    }
+                    src={post.data.heroImage}
+                    alt={post.data.heroImageAlt ?? ""}
+                  />
+                )}
+              </ClickableCard>
+            ))}
+          </div>
+          <div class="flex justify-center mt-16">
+            <Pagination
+              url={page.url}
+              class="font-mono text-sm uppercase tracking-widest"
+            />
+          </div>
+        </>
+      ) : (
+        <div class="flex flex-col items-center justify-center py-8 text-center border border-dashed border-border/60 rounded-xl bg-secondary/5">
+          <div class="p-4 bg-secondary rounded-full mb-4">
+            <MoodEmpty class="size-8 text-muted-foreground" />
+          </div>
+          <h3 class="font-sans text-xl font-medium mb-2">No posts found</h3>
+          <p class="text-muted-foreground max-w-xs mx-auto">
+            We haven't published any regular articles yet. Check back soon or
+            explore our featured stories above.
+          </p>
+        </div>
+      )
+    }
   </section>
 </PageLayout>

@@ -8,6 +8,7 @@ import Pagination from "@/components/astro/Pagination.astro";
 import type { GetStaticPaths, Page } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
+import MoodEmpty from "@tabler/icons/outline/mood-empty.svg";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPublishedEvents = (
@@ -34,7 +35,7 @@ const pageDescription =
 ---
 
 <PageLayout title={pageTitle} description={pageDescription}>
-  <header class="flex flex-col items-center justify-center py-16">
+  <header class="flex flex-col items-center justify-center py-16 md:py-24">
     <Badge
       variant={"secondary"}
       size={"sm"}
@@ -48,26 +49,39 @@ const pageDescription =
       Explore our latest events
     </h1>
   </header>
-  <section class="mb-24">
-    <div class="flex flex-col gap-6 mb-12">
-      {
-        page.data.map((event) => {
-          return (
-            <ClickableCard
-              href={`/events/${event.id}/`}
-              class="group bg-secondary text-secondary-foreground rounded-2xl border border-border/50 hover:border-primary/50 transition-all overflow-hidden"
-            >
-              <EventCard {...event} />
-            </ClickableCard>
-          );
-        })
-      }
-    </div>
-    <div class="flex justify-center mt-16">
-      <Pagination
-        url={page.url}
-        class="font-mono text-sm uppercase tracking-widest"
-      />
-    </div>
-  </section>
+  {
+    page.data.length > 0 ? (
+      <section class="mb-24">
+        <div class="flex flex-col gap-6 mb-12">
+          {page.data.map((event) => {
+            return (
+              <ClickableCard
+                href={`/events/${event.id}/`}
+                class="group bg-secondary text-secondary-foreground rounded-2xl border border-border/50 hover:border-primary/50 transition-all overflow-hidden"
+              >
+                <EventCard {...event} />
+              </ClickableCard>
+            );
+          })}
+        </div>
+        <div class="flex justify-center mt-16">
+          <Pagination
+            url={page.url}
+            class="font-mono text-sm uppercase tracking-widest"
+          />
+        </div>
+      </section>
+    ) : (
+      <div class="flex flex-col items-center justify-center py-8 text-center border border-dashed border-border/60 rounded-xl bg-secondary/5">
+        <div class="p-4 bg-secondary rounded-full mb-4">
+          <MoodEmpty class="size-8 text-muted-foreground" />
+        </div>
+        <h3 class="font-sans text-xl font-medium mb-2">No upcoming events</h3>
+        <p class="text-muted-foreground max-w-xs mx-auto">
+          There are no events scheduled at the moment. Check back later for
+          updates.
+        </p>
+      </div>
+    )
+  }
 </PageLayout>
