@@ -1,9 +1,9 @@
 ---
-title: "National Engineering Conference 2025"
-subtitle: "Innovation for Sustainable Infrastructure"
-coverImage: "../../assets/blog-placeholder-3.jpg"
-eventStart: 2025-08-20 09:00:00
-eventEnd: 2025-08-21 17:00:00
+title: "International Conference 2026"
+subtitle: "on Agricultural Engineering and Climate Smart Agriculture"
+coverImage: "../../assets/251122_IC2026.jpg"
+eventStart: 2026-01-29 09:00:00
+eventEnd: 2026-01-30 17:00:00
 eventType: "conference"
 registrationDeadline: 2025-08-15 00:00:00
 registrationLink: "https://nsae.org.np/conference/register"

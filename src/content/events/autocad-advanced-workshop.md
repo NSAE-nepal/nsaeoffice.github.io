@@ -30,7 +30,7 @@ contactPersons:
     phone: "+977-9851000000"
     isPrimary: true
 
-draft: false
+draft: true
 ---
 
 ## About This Workshop

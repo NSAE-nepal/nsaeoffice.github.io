@@ -21,7 +21,7 @@ contactPersons:
     email: "tech@nsae.org.np"
     isPrimary: true
 
-draft: false
+draft: true
 ---
 
 ## Webinar Overview
