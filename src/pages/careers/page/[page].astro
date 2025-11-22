@@ -1,17 +1,14 @@
 ---
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
-import { SITE_DESCRIPTION, SITE_TITLE } from "@/consts";
 import ClickableCard from "@/components/astro/Card/ClickableCard.astro";
 import PageLayout from "@/layouts/PageLayout.astro";
-import MapPin from "@tabler/icons/outline/map-pin.svg";
-import ArrowNarrowRight from "@tabler/icons/outline/arrow-narrow-right.svg";
-import CalendarWeek from "@tabler/icons/outline/calendar-week.svg";
 import Badge from "@/components/astro/Badge.astro";
 import type { GetStaticPaths, Page } from "astro";
 import { PAGE_SIZE } from "@/consts";
 import Pagination from "@/components/astro/Pagination.astro";
-import MoodEmpty from "@tabler/icons/outline/mood-empty.svg";
+import CareersCard from "@/components/astro/Card/CareersCard.astro";
+import Empty from "@/components/astro/Empty.astro";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allVacancies = (
@@ -61,60 +58,10 @@ const pageDescription = "Your Next Chapter Starts Here";
         <div class="space-y-4">
           {page.data.map((vacancy) => (
             <ClickableCard
-              class="group relative block w-full rounded-xl border border-border/50 bg-secondary p-6 text-secondary-foreground shadow-sm transition-all duration-300 hover:border-primary/50 hover:bg-secondary/70 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+              class="group relative block w-full rounded-xl  bg-secondary p-6 text-secondary-foreground shadow-sm"
               href={`/careers/${vacancy.id}/`}
             >
-              <div class="flex flex-col gap-2">
-                <div class="flex items-center justify-between">
-                  <span class="font-sans text-sm font-medium text-primary">
-                    {vacancy.data.company?.name ?? "In-house"}
-                  </span>
-                  <Badge
-                    size={"xs"}
-                    variant={
-                      vacancy.data.status === "closed"
-                        ? "destructive"
-                        : "default"
-                    }
-                    class="font-mono text-xs uppercase tracking-widest"
-                  >
-                    {vacancy.data.status === "closed"
-                      ? "Closed"
-                      : vacancy.data.type}
-                  </Badge>
-                </div>
-
-                <h3 class="font-sans text-2xl font-bold group-hover:underline leading-snug">
-                  {vacancy.data.title}
-                </h3>
-
-                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-sm text-muted-foreground/80">
-                  {vacancy.data.closingDate && (
-                    <span class="flex items-center gap-1.5">
-                      <CalendarWeek class={"size-4 text-primary/70"} />
-                      Closes:{" "}
-                      {vacancy.data.closingDate.toLocaleDateString(undefined, {
-                        year: "numeric",
-                        month: "short",
-                        day: "numeric",
-                      })}
-                    </span>
-                  )}
-                </div>
-
-                <div class="flex flex-row items-center justify-between mt-4">
-                  <span class="flex items-center gap-1.5 font-mono text-sm uppercase tracking-wider">
-                    <MapPin class="size-4 text-primary/70" />
-                    {vacancy.data.location}
-                  </span>
-                  <a
-                    class="font-mono text-xs uppercase tracking-widest flex flex-row gap-2 items-center hover:text-primary transition-colors"
-                    href={`/careers/${vacancy.id}/`}
-                  >
-                    Learn more <ArrowNarrowRight class="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
+              <CareersCard {...vacancy} />
             </ClickableCard>
           ))}
         </div>
@@ -126,16 +73,10 @@ const pageDescription = "Your Next Chapter Starts Here";
         </div>
       </section>
     ) : (
-      <div class="flex flex-col items-center justify-center py-8 text-center border border-dashed border-border/60 rounded-xl bg-secondary/5">
-        <div class="p-4 bg-secondary rounded-full mb-4">
-          <MoodEmpty class="size-8 text-muted-foreground" />
-        </div>
-        <h3 class="font-sans text-xl font-medium mb-2">No open positions</h3>
-        <p class="text-muted-foreground max-w-xs mx-auto">
-          We don't have any vacancies right now. Please check back later for new
-          opportunities.
-        </p>
-      </div>
+      <Empty
+        title="No open positions"
+        description="We don't have any vacancies right now. Please check back later for new opportunities."
+      />
     )
   }
 </PageLayout>

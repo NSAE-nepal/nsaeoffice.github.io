@@ -1,88 +1,67 @@
 ---
-import Categories from "@/components/Categories.astro";
-import FormattedDate from "@/components/FormattedDate.astro";
-import { getEntries } from "astro:content";
+import ArrowRight from "@tabler/icons/outline/arrow-right.svg";
+import CalendarWeek from "@tabler/icons/outline/calendar-week.svg";
+import MapPin from "@tabler/icons/outline/map-pin.svg";
+import FileText from "@tabler/icons/outline/file-text.svg";
 import type { CollectionEntry } from "astro:content";
+import Badge from "../Badge.astro";
 import ArrowNarrowRight from "@tabler/icons/outline/arrow-narrow-right.svg";
-import AvatarGroup from "../AvatarGroup.astro";
-import Separator from "../Separator";
-import Image from "astro/components/Image.astro";
 
-type Props = CollectionEntry<"posts">;
-const { id, data } = Astro.props;
-const {
-  title,
-  subtitle,
-  pubDate,
-  categories,
-  authors,
-  heroImage,
-  heroImageAlt,
-} = data;
-
-const authorsData = authors ? await getEntries(authors) : null;
-const categoriesData = categories ? await getEntries(categories) : null;
+type Props = CollectionEntry<"minutes">;
+const { data, id } = Astro.props;
+const formatType = (type: string) => {
+  if (type === "agm") return "AGM";
+  return type.charAt(0).toUpperCase() + type.slice(1).replace("-", " ");
+};
 ---
 
-<article
-  class="split-card gap-4 gap-x-6 cursor-pointer group grid grid-cols-1 md:grid-cols-2 p-0 md:p-0 bg-secondary text-secondary-foreground rounded-2xl"
->
-  <div
-    class="col-span-1 flex flex-col min-h-64 gap-2 p-4 md:p-6 order-2 md:order-1"
-  >
-    <div class="flex flex-row justify-between items-center">
-      {
-        categoriesData ? (
-          <Categories badgeVariant={"outline"} categories={categoriesData} />
-        ) : (
-          <div />
-        )
-      }
+<article class="split-card space-y-4">
+  <div class="flex items-center justify-between">
+    <div
+      class="flex items-center gap-1.5 font-mono text-sm text-muted-foreground"
+    >
+      <CalendarWeek class="size-4 text-primary/70" />
+      <time datetime={data.pubDate.toISOString()}>
+        {
+          data.pubDate.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          })
+        }
+      </time>
+    </div>
+    <Badge
+      variant={data.type === "agm" ? "default" : "outline"}
+      size="xs"
+      class="font-mono text-xs uppercase tracking-widest"
+    >
+      {formatType(data.type)}
+    </Badge>
+  </div>
 
-      <p
-        class="font-mono text-xs uppercase tracking-wider text-muted-foreground"
+  <div class="space-y-3">
+    <h3
+      class="font-sans split-target text-2xl md:text-3xl font-medium leading-snug"
+    >
+      {data.title}
+    </h3>
+
+    <div class="flex flex-row items-center justify-between mt-4">
+      <span
+        class="flex items-center gap-1.5 font-mono text-sm text-muted-foreground"
       >
-        <FormattedDate date={pubDate} />
-      </p>
-    </div>
-    <div class="flex flex-col gap-2 grow">
-      <a
-        class="split-target font-sans text-2xl md:text-3xl font-medium first-letter:capitalize leading-snug pb-1"
-        href={`/${id}`}
-      >
-        {title}
-      </a>
-      {
-        subtitle && (
-          <span class="font-sans text-sm text-muted-foreground first-letter:capitalize">
-            {subtitle}
-          </span>
-        )
-      }
-    </div>
-    <Separator class={"my-4"} />
-    <div class="flex flex-row justify-between items-center">
+        <MapPin class="size-4 text-primary/70" />
+        {data.location}
+      </span>
       <a
         class="font-mono text-xs uppercase tracking-widest flex flex-row gap-2 items-center hover:text-primary transition-colors"
-        href={`/${id}`}
+        href={`/minutes/${id}/`}
       >
-        Read more <ArrowNarrowRight class="w-4 h-4" />
+        Read minutes <ArrowNarrowRight class="w-4 h-4" />
       </a>
-      {authorsData && <AvatarGroup data={authorsData} />}
     </div>
   </div>
-  {
-    heroImage && (
-      <div class="col-span-1 rounded-t-xl md:rounded-l-none md:rounded-r-xl max-h-64 lg:min-h-80 overflow-hidden order-1 md:order-2">
-        <Image
-          inferSize
-          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
-          src={heroImage}
-          alt={heroImageAlt ?? ""}
-        />
-      </div>
-    )
-  }
 </article>
 
 <style is:global>
@@ -105,6 +84,7 @@ const categoriesData = categories ? await getEntries(categories) : null;
     transform-origin: var(--transform-origin);
   }
 </style>
+
 <script>
   import gsap from "gsap";
   import SplitText from "gsap/SplitText";

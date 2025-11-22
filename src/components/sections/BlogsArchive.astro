@@ -8,8 +8,12 @@ import Badge from "../astro/Badge.astro";
 import ArrowRight from "@tabler/icons/outline/arrow-right.svg";
 
 const allPublishedPosts = (
-  await getCollection("blog", ({ data }) => {
-    return import.meta.env.MODE !== "production" || data.draft === false;
+  await getCollection("posts", ({ data }) => {
+    return (
+      import.meta.env.MODE !== "production" ||
+      data.draft === false ||
+      data.type === "blog"
+    );
   })
 ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 

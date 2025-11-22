@@ -14,8 +14,11 @@ import MoodEmpty from "@tabler/icons/outline/mood-empty.svg";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPublishedPosts = (
-    await getCollection("blog", ({ data }) => {
-      return import.meta.env.MODE !== "production" || data.draft === false;
+    await getCollection("posts", ({ data }) => {
+      return (
+        (import.meta.env.MODE !== "production" || data.draft === false) &&
+        data.type === "blog"
+      );
     })
   ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -30,8 +33,8 @@ export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   });
 };
 interface Props {
-  page: Page<CollectionEntry<"blog">>;
-  featuredPosts: CollectionEntry<"blog">[];
+  page: Page<CollectionEntry<"posts">>;
+  featuredPosts: CollectionEntry<"posts">[];
 }
 const { page, featuredPosts } = Astro.props;
 const pageTitle = "Our latest blog posts";
@@ -63,7 +66,7 @@ const pageDescription =
         </h2>
         <div class="grid gap-8 lg:gap-10 xl:gap-18">
           {featuredPosts.map((post) => (
-            <ClickableCard href={`/blog/${post.id}/`}>
+            <ClickableCard href={`/${post.id}/`}>
               <BlogFeaturedCard {...post} />
             </ClickableCard>
           ))}
@@ -85,7 +88,7 @@ const pageDescription =
             {page.data.map((post) => (
               <ClickableCard
                 class="group relative col-span-2 lg:col-span-1 border-b border-border last:border-b-0 lg:[&:nth-last-child(2)]:border-b-0 hover:bg-secondary/20 transition-colors"
-                href={`/blog/${post.id}/`}
+                href={`/${post.id}/`}
               >
                 <BlogCard {...post} />
                 {post.data.heroImage && (

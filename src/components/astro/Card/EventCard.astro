@@ -24,7 +24,7 @@ const isOnline =
 ---
 
 <article
-  class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 md:p-8 group rounded-2xl border border-border/50 hover:border-primary/50 transition-colors"
+  class="split-card grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6 md:p-8 group rounded-2xl"
 >
   <div class="flex flex-col gap-4 md:col-span-1">
     <div class="flex items-center justify-between">
@@ -41,7 +41,7 @@ const isOnline =
 
     <div class="flex flex-col gap-2 grow">
       <h3
-        class="font-sans text-2xl md:text-3xl font-medium leading-snug group-hover:text-foreground/80 transition-colors"
+        class="split-target font-sans text-2xl md:text-3xl font-medium leading-snug pb-1"
       >
         {data.title}
       </h3>
@@ -147,3 +147,91 @@ const isOnline =
     )
   }
 </article>
+
+<style is:global>
+  .split-word {
+    position: relative;
+    display: inline-block;
+    margin-right: 0.25em;
+    --underline-scale: 0;
+    --transform-origin: right center;
+  }
+  .split-word::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    transform: scaleX(var(--underline-scale));
+    transform-origin: var(--transform-origin);
+  }
+</style>
+
+<script>
+  import gsap from "gsap";
+  import SplitText from "gsap/SplitText";
+
+  if (typeof window !== "undefined") {
+    window.addEventListener("load", () => {
+      gsap.registerPlugin(SplitText);
+
+      const cards = document.querySelectorAll(".split-card");
+
+      cards.forEach((card) => {
+        const target = card.querySelector(".split-target");
+        if (!target) return;
+
+        let split = SplitText.create(target, {
+          type: "words",
+          wordsClass: "split-word",
+        });
+
+        const words = split.words;
+        let isInitialAnimComplete = false;
+
+        gsap.from(words, {
+          y: 20,
+          autoAlpha: 0,
+          duration: 0.6,
+          ease: "power2.out",
+          stagger: 0.05,
+          onComplete: () => {
+            isInitialAnimComplete = true;
+          },
+        });
+
+        card.addEventListener("mouseenter", () => {
+          if (!isInitialAnimComplete) return;
+
+          gsap.set(words, {
+            "--transform-origin": "left center",
+          });
+          gsap.to(words, {
+            "--underline-scale": 1,
+            duration: 0.4,
+            ease: "power3.out",
+            stagger: 0.04,
+            overwrite: "auto",
+          });
+        });
+
+        card.addEventListener("mouseleave", () => {
+          if (!isInitialAnimComplete) return;
+
+          gsap.set(words, {
+            "--transform-origin": "right center",
+          });
+          gsap.to(words, {
+            "--underline-scale": 0,
+            duration: 0.3,
+            ease: "power3.in",
+            stagger: 0.03,
+            overwrite: true,
+          });
+        });
+      });
+    });
+  }
+</script>

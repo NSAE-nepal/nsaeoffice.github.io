@@ -1,9 +1,9 @@
 ---
 import { type CollectionEntry, getCollection, render } from "astro:content";
-import BlogPost from "../../layouts/BlogPost.astro";
+import PostLayout from "../layouts/PostLayout.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog", ({ data }) => {
+  const posts = await getCollection("posts", ({ data }) => {
     // In production, filter out drafts.
     return import.meta.env.MODE !== "production" || data.draft === false;
   });
@@ -13,13 +13,13 @@ export async function getStaticPaths() {
     props: post,
   }));
 }
-type Props = CollectionEntry<"blog">;
+type Props = CollectionEntry<"posts">;
 
 const post = Astro.props;
 
 const { Content } = await render(post);
 ---
 
-<BlogPost {...post.data}>
+<PostLayout {...post.data}>
   <Content />
-</BlogPost>
+</PostLayout>

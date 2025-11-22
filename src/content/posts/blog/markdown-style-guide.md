@@ -3,12 +3,13 @@ title: "Markdown Style Guide"
 subtitle: "Xerum, quo qui aut unt expliquam qui dolut labo. Aque venitatiusda cum, voluptionse latur sitiae dolessi aut parist aut dollo enim qui"
 description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
 pubDate: "Jun 19 2024"
-heroImage: "../../assets/blog-placeholder-3.jpg"
+heroImage: "../../../assets/blog-placeholder-3.jpg"
 authors:
   - john-smith
   - jane-doe
 categories: ["technology"]
 draft: true
+type: "blog"
 ---
 
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
@@ -45,7 +46,7 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 
 ### Output
 
-![blog placeholder](../../assets/blog-placeholder-about.jpg)
+![blog placeholder](../../../assets/blog-placeholder-about.jpg)
 
 ## Blockquotes
 

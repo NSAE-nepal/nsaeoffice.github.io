@@ -1,54 +1,73 @@
 ---
-import Categories from "@/components/Categories.astro";
-import FormattedDate from "@/components/FormattedDate.astro";
-import { getEntries } from "astro:content";
 import type { CollectionEntry } from "astro:content";
+import Badge from "../Badge.astro";
+import MapPin from "@tabler/icons/outline/map-pin.svg";
 import ArrowNarrowRight from "@tabler/icons/outline/arrow-narrow-right.svg";
-import AvatarGroup from "../AvatarGroup.astro";
-
-type Props = CollectionEntry<"posts">;
-
-const { id, data } = Astro.props;
-const { title, subtitle, pubDate, categories, authors } = data;
-
-const authorsData = authors ? await getEntries(authors) : null;
-const categoriesData = categories ? await getEntries(categories) : null;
+import CalendarWeek from "@tabler/icons/outline/calendar-week.svg";
+type Props = CollectionEntry<"careers">;
+const { data, id } = Astro.props;
 ---
 
-<article
-  class="split-card space-y-2 cursor-pointer flex flex-col relative z-10 p-4"
->
-  <div class="flex flex-row justify-between items-center">
-    {categoriesData ? <Categories categories={categoriesData} /> : <div />}
-
-    <p class="font-mono text-xs text-muted-foreground uppercase tracking-wider">
-      <FormattedDate date={pubDate} />
-    </p>
+<article class="split-card flex flex-col gap-2">
+  <div class="flex items-center justify-between">
+    <span class="font-sans text-sm font-medium text-primary">
+      {data.company?.name ?? "In-house"}
+    </span>
+    <Badge
+      size={"xs"}
+      variant={data.status === "closed" ? "destructive" : "default"}
+      class="font-mono text-xs uppercase tracking-widest"
+    >
+      {data.status === "closed" ? "Closed" : data.type}
+    </Badge>
   </div>
 
-  <div class="flex flex-col gap-2 grow">
-    <a
-      class="split-target font-sans text-xl md:text-2xl font-medium first-letter:capitalize leading-snug"
-      href={`/${id}`}
-    >
-      {title}
-    </a>
+  <h3
+    class="split-target font-sans text-2xl md:text-3xl font-medium leading-snug"
+  >
+    {data.title}
+  </h3>
+
+  <div
+    class="flex flex-wrap items-center gap-x-4 gap-y-1 pt-1 font-mono text-sm text-muted-foreground/80"
+  >
     {
-      subtitle && (
-        <span class="font-sans text-sm text-muted-foreground first-letter:capitalize">
-          {subtitle}
+      data.closingDate && (
+        <span class="inline-flex items-center gap-1.5 leading-none">
+          <CalendarWeek class={"size-4 shrink-0 text-primary/70"} />
+          <span>
+            Closes:{" "}
+            {data.closingDate.toLocaleDateString(undefined, {
+              year: "numeric",
+              month: "short",
+              day: "numeric",
+            })}
+          </span>
         </span>
       )
     }
-    <div class="flex flex-row items-center justify-between pt-4 pb-0 mt-auto">
-      <a
-        class="font-mono text-xs uppercase tracking-widest flex flex-row gap-2 items-center hover:text-primary transition-colors"
-        href={`/${id}`}
-      >
-        Read more <ArrowNarrowRight class="w-4 h-4" />
-      </a>
-      {authorsData && <AvatarGroup data={authorsData} />}
-    </div>
+  </div>
+
+  <div class="flex flex-row items-center justify-between mt-4">
+    <span
+      *
+      Updated:
+      inline-flex,
+      leading-none
+      *
+      class="inline-flex items-center gap-1.5 font-mono text-sm uppercase tracking-wider leading-none"
+    >
+      <MapPin class="size-4 shrink-0 text-primary/70" />
+
+      <span class="translate-y-[1px]">{data.location}</span>
+    </span>
+    <a
+      class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:text-primary transition-colors leading-none"
+      href={`/careers/${id}/`}
+    >
+      <span class="translate-y-[1px]">Learn more</span>
+      <ArrowNarrowRight class="w-4 h-4 shrink-0" />
+    </a>
   </div>
 </article>
 
@@ -68,7 +87,6 @@ const categoriesData = categories ? await getEntries(categories) : null;
     width: 100%;
     height: 2px;
     background-color: currentColor;
-    /* GSAP controls these variables */
     transform: scaleX(var(--underline-scale));
     transform-origin: var(--transform-origin);
   }

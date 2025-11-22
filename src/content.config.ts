@@ -39,12 +39,13 @@ const resourcesCollection = defineCollection({
 });
 
 // === Blog Collection ===
-const blogCollection = defineCollection({
-  loader: glob({ base: "./src/content/blog", pattern: "**/*.{md,mdx}" }),
+const postsCollection = defineCollection({
+  loader: glob({ base: "./src/content/posts", pattern: "**/*.{md,mdx}" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
       subtitle: z.string().optional(),
+      type: z.enum(["blog", "news", "notice"]).default("blog"),
       /**
        * A short description of the current page’s content. Optional, but recommended.
        * A good description is 150–160 characters long and outlines the key content
@@ -90,7 +91,7 @@ const blogCollection = defineCollection({
       featured: z.boolean().default(false),
       categories: z.array(reference("categories")).optional(),
       authors: z.array(reference("authors")).optional(),
-      relatedPosts: z.array(reference("blog")).optional(),
+      relatedPosts: z.array(reference("posts")).optional(),
     }),
 });
 
@@ -531,7 +532,7 @@ export const collections = {
   authors: authorsCollection,
   faq: faqCollection,
   contacts: contactsCollection,
-  blog: blogCollection,
+  posts: postsCollection,
   categories: categoriesCollection,
   committees: committeeCollection,
   careers: careersCollection,

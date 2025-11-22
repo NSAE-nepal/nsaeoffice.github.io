@@ -4,12 +4,11 @@ import type { CollectionEntry } from "astro:content";
 import ArrowLeft from "@tabler/icons/outline/arrow-left.svg";
 
 import FormattedDate from "../components/FormattedDate.astro";
-import Prose from "@/components/astro/Prose.astro";
 import PageLayout from "./PageLayout.astro";
 import { getEntries } from "astro:content";
 import Categories from "@/components/Categories.astro";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"posts">["data"];
 
 const {
   title,
@@ -22,20 +21,31 @@ const {
   heroImage,
   heroImageAlt,
   relatedPosts,
+  type,
 } = Astro.props;
 
 const authorsData = authors ? await getEntries(authors) : null;
 const categoriesData = categories ? await getEntries(categories) : null;
+
+const backLinkConfig: Record<string, { href: string; label: string }> = {
+  blog: { href: "/blog/page/1", label: "Back to All Blogs" },
+  news: { href: "/news/page/1", label: "Back to All News" },
+  notice: { href: "/notices/page/1", label: "Back to All Notices" },
+};
+
+const { href: backHref, label: backLabel } =
+  backLinkConfig[type] || backLinkConfig.blog;
 ---
 
 <PageLayout title={title} description={description ?? title}>
   <article class="py-8 space-y-10">
     <header class="space-y-8 border-b border-border pb-10">
       <a
-        href="/blog/page/1"
+        href={backHref}
         class="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors px-4"
       >
-        <ArrowLeft class="size-4" /> Back to All Blogs
+        <ArrowLeft class="size-4" />
+        {backLabel}
       </a>
       <div class="space-y-4 text-center">
         <h1

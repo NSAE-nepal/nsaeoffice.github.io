@@ -1,22 +1,14 @@
 ---
 title: "Agricultural Engineer"
 type: "Contract"
-status: "open till 30 November"
+location: "All over Nepal"
 postedDate: 2025-11-19
 closingDate: 2025-11-30
 company:
   name: "Karma Group of Companies"
-  logo: "https://datacorp.example.com"
-  website: "https://www.facebook.com/photo/?fbid=1383065273605985&set=a.791878072724711"
-description: "DataCorp is seeking an Agricultural Engineer.."
+  website: "https://www.facebook.com/KarmaGroupNepal"
+description: "Karma group is seeking an Agricultural Engineer.."
 ---
-
-<!--## 📊 About the Role
-
-DataCorp Inc. is looking for a highly skilled **Data Scientist (Contract)** to support our analytics and machine learning initiatives.  
-You will work closely with product, engineering, and research teams to develop data-driven solutions that improve customer experience and operational efficiency.
-
---->
 
 ## 🔧 Responsibilities
 
@@ -27,6 +19,7 @@ You will work closely with product, engineering, and research teams to develop d
 - Improve team service operation standard
 - Plan and organize internal and external service training
 - Plan and construct service and spare parts network
+
 ---
 
 ## 🧠 Requirments
@@ -43,24 +36,7 @@ You will work closely with product, engineering, and research teams to develop d
 
 ---
 
-<!-- ## ⭐ Preferred Qualifications
-
-- Experience with deep learning frameworks (PyTorch/TensorFlow)
-- Familiarity with MLOps tools (MLflow, Airflow, Kubeflow)
-- Background in data visualization (Tableau, Power BI, Plotly)
-- Experience in forecasting, NLP, or recommendation systems
-
---->
-
-<!-- ## 💼 Contract Details
-
-- **Type:** Contract
-- **Duration:** Not mentioned
-- **Location:** Kathmandu
-- **Hours:** Full-time
-- **Compensation:** Competitive, based on experience
-
---->
+![Agricultural engineers](https://scontent.fbwa8-1.fna.fbcdn.net/v/t39.30808-6/584857861_1383065276939318_431665075612127254_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=127cfc&_nc_ohc=Hxtfj4GOkLAQ7kNvwHvawIi&_nc_oc=Adm0F8NgQjbuJQ9K6k3cgw434UFSuXVdg2ARgE-F5agXcgqNLke-o-zM0uu21iQ6ilQ&_nc_zt=23&_nc_ht=scontent.fbwa8-1.fna&_nc_gid=fECU9aY0QBz2DAq-tlTUnA&oh=00_Afj0swG-RiOuB72e1J1aOHj1RZHNbsA708YRx2BQgZTojg&oe=6927AE25)
 
 ## 🚀 How to Apply
 

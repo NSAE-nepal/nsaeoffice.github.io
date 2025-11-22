@@ -1,0 +1,105 @@
+---
+import { getCollection } from "astro:content";
+import BlogCard from "@/components/astro/Card/BlogCard.astro";
+import ClickableCard from "@/components/astro/Card/ClickableCard.astro";
+import PageLayout from "@/layouts/PageLayout.astro";
+import { Image } from "astro:assets";
+import Badge from "@/components/astro/Badge.astro";
+import type { GetStaticPaths, Page } from "astro";
+import { PAGE_SIZE } from "@/consts";
+import Pagination from "@/components/astro/Pagination.astro";
+import type { CollectionEntry } from "astro:content";
+import MoodEmpty from "@tabler/icons/outline/mood-empty.svg";
+import Empty from "@/components/astro/Empty.astro";
+
+export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
+  const allNotices = (
+    await getCollection("posts", ({ data }) => {
+      return (
+        (import.meta.env.MODE !== "production" || data.draft === false) &&
+        data.type === "notice"
+      );
+    })
+  ).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+  return paginate(allNotices, {
+    pageSize: PAGE_SIZE,
+  });
+};
+
+interface Props {
+  page: Page<CollectionEntry<"posts">>;
+}
+
+const { page } = Astro.props;
+
+const pageTitle = "Important Notices";
+const pageDescription = "Updates, announcements, and official notices.";
+---
+
+<PageLayout title={pageTitle} description={pageDescription}>
+  <header class="flex flex-col items-center justify-center py-16 md:py-24">
+    <Badge
+      variant={"secondary"}
+      size={"sm"}
+      class="font-mono uppercase tracking-widest text-xs mb-3 border border-border/50"
+    >
+      Announcements
+    </Badge>
+    <h1
+      class="font-sans text-5xl md:text-7xl font-medium tracking-tighter pt-4 text-center max-w-4xl leading-tight"
+    >
+      Notices & Updates
+    </h1>
+  </header>
+
+  <section class="mb-12">
+    <h2
+      class="font-sans text-xl md:text-2xl font-medium mb-8 uppercase tracking-wider border-b border-border/50 pb-2"
+    >
+      Latest Notices
+    </h2>
+
+    {
+      page.data.length > 0 ? (
+        <>
+          <div class="grid grid-cols-2 ">
+            {page.data.map((post, index) => (
+              <>
+                <ClickableCard
+                  class="group relative col-span-2 hover:bg-secondary/20 transition-colors"
+                  href={`/${post.id}/`}
+                >
+                  <BlogCard {...post} />
+
+                  {post.data.heroImage && (
+                    <Image
+                      inferSize
+                      class="absolute top-0 right-0 h-full w-1/4 object-cover z-0 hidden group-hover:block opacity-40 grayscale group-hover:grayscale-0 transition-all duration-500"
+                      src={post.data.heroImage}
+                      alt={post.data.heroImageAlt ?? ""}
+                    />
+                  )}
+                </ClickableCard>
+                {index < page.data.length - 1 && (
+                  <div class="col-span-2 my-6  border-b-2 border-dashed border-secondary-foreground" />
+                )}
+              </>
+            ))}
+          </div>
+          <div class="flex justify-center mt-16">
+            <Pagination
+              url={page.url}
+              class="font-mono text-sm uppercase tracking-widest"
+            />
+          </div>
+        </>
+      ) : (
+        <Empty
+          description="We haven't published any official notices yet. Please check back later."
+          title="No notices found"
+        />
+      )
+    }
+  </section>
+</PageLayout>

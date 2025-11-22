@@ -3,7 +3,7 @@ import rss from "@astrojs/rss";
 import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 
 export async function GET(context) {
-  const posts = await getCollection("blog");
+  const posts = await getCollection("posts");
   const validPosts = posts.filter((post) => !post.data.draft);
 
   const items = await Promise.all(

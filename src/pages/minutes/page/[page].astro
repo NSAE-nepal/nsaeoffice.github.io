@@ -1,12 +1,6 @@
 ---
 import Badge from "@/components/astro/Badge.astro";
-
-import ArrowRight from "@tabler/icons/outline/arrow-right.svg";
-import CalendarWeek from "@tabler/icons/outline/calendar-week.svg";
-import MapPin from "@tabler/icons/outline/map-pin.svg";
-import FileText from "@tabler/icons/outline/file-text.svg";
 import MoodEmpty from "@tabler/icons/outline/mood-empty.svg";
-
 import PageLayout from "@/layouts/PageLayout.astro";
 import { getCollection } from "astro:content";
 import type { CollectionEntry } from "astro:content";
@@ -14,6 +8,7 @@ import ClickableCard from "@/components/astro/Card/ClickableCard.astro";
 import type { GetStaticPaths, Page } from "astro";
 import { PAGE_SIZE } from "@/consts";
 import Pagination from "@/components/astro/Pagination.astro";
+import MinutesCard from "@/components/astro/Card/MinutesCard.astro";
 
 export const getStaticPaths: GetStaticPaths = async ({ paginate }) => {
   const allPublishedMinutes = (
@@ -32,11 +27,6 @@ interface Props {
 }
 
 const { page } = Astro.props;
-
-const formatType = (type: string) => {
-  if (type === "agm") return "AGM";
-  return type.charAt(0).toUpperCase() + type.slice(1).replace("-", " ");
-};
 
 const pageTitle = "Official Meeting Records";
 const pageDescription =
@@ -71,54 +61,13 @@ const pageDescription =
       {
         page.data.length > 0 ? (
           <>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+            <div class="space-y-4">
               {page.data.map((minute) => (
                 <ClickableCard
-                  class="group relative flex flex-col justify-between rounded-xl border border-border/50 bg-secondary text-secondary-foreground p-6 transition-all hover:border-primary/50 h-full"
+                  class="group relative block w-full rounded-xl  bg-secondary p-6 text-secondary-foreground shadow-sm"
                   href={`/minutes/${minute.id}/`}
                 >
-                  <div class="space-y-4">
-                    <div class="flex items-center justify-between">
-                      <div class="flex items-center gap-1.5 font-mono text-sm text-muted-foreground">
-                        <CalendarWeek class="size-4 text-primary/70" />
-                        <time datetime={minute.data.pubDate.toISOString()}>
-                          {minute.data.pubDate.toLocaleDateString(undefined, {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })}
-                        </time>
-                      </div>
-                      <Badge
-                        variant={
-                          minute.data.type === "agm" ? "default" : "outline"
-                        }
-                        size="xs"
-                        class="font-mono text-xs uppercase tracking-widest"
-                      >
-                        {formatType(minute.data.type)}
-                      </Badge>
-                    </div>
-
-                    <div class="space-y-3">
-                      <h3 class="font-sans text-xl font-bold tracking-tight group-hover:text-primary transition-colors leading-snug">
-                        {minute.data.title}
-                      </h3>
-
-                      <div class="flex items-center gap-1.5 font-mono text-sm text-muted-foreground/80">
-                        <MapPin class="size-4 text-primary/70" />
-                        <span>{minute.data.location}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="mt-6 flex items-center font-mono text-xs uppercase tracking-widest text-foreground hover:text-primary transition-colors">
-                    <span class="flex items-center gap-2">
-                      <FileText class="size-4" />
-                      View Minutes
-                    </span>
-                    <ArrowRight class="ml-auto size-4 transition-transform group-hover:translate-x-1" />
-                  </div>
+                  <MinutesCard {...minute} />
                 </ClickableCard>
               ))}
             </div>
