@@ -8,7 +8,7 @@ authors:
   - john-smith
 categories: ["bioenergy", "post-harvest", "renewable-resources"]
 featured: false
-draft: false
+draft: true
 type: "blog"
 ---
 

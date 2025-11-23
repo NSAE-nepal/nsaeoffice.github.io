@@ -5,7 +5,7 @@ description: "An analysis of how vertical integration and food processing techno
 pubDate: "Feb 10 2024"
 heroImage: ../../../assets/blog-placeholder-2.jpg
 featured: false
-draft: false
+draft: true
 type: "blog"
 ---
 

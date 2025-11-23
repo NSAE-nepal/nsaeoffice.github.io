@@ -9,7 +9,7 @@ authors:
   - john-smith
 categories: ["precision-agriculture", "agri-automation", "farm-machinery"]
 featured: true
-draft: false
+draft: true
 type: "blog"
 ---
 

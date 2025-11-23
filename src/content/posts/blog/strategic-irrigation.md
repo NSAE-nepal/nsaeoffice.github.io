@@ -8,7 +8,7 @@ authors:
   - jane-doe
 categories: ["soil-water", "climate-smart-agriculture", "hydrology"]
 featured: false
-draft: false
+draft: true
 type: "blog"
 ---
 
