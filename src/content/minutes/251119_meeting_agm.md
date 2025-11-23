@@ -1,18 +1,24 @@
 ---
-title: "14th Annual General Meeting Minutes"
-pubDate: "Jul 08 2022"
-type: "agm"
-location: "Main Hall, City Center"
-chairperson: "Dr. John Doe"
-secretary: "Er. Jane Smith"
+title: " Executive Committee Meeting Minutes"
+pubDate: "April 16 2025"
+type: "executive"
+location: "NAERC Hall, Khumaltar"
+chairperson: "Dr. Jeet Bahadur Chand"
+secretary: "Er. Subash Adhikari"
 attendees:
-  - "Dr. John Doe"
-  - "Er. Jane Smith"
-  - "Mr. Robert Brown"
-recordedBy: "jane-smith-id"
+  - "Dr. Jeet Bahadur Chand"
+  - "Dr. Anand Mishra"
+  - "Mr. Subash Adhikari"
+  - "Mr. Sameer Shrestha"
+  - "Mr. Sandesh Rai"
+  - "Dr. Shiv Kumar Jha"
+  - "Ms. Sangita Shrestha"
+  - "Mr. Suraj Thapa"
+recordedBy: "Subash Adhikari"
 draft: false
 ---
 
+<!--
 ## Agenda
 
 1. Welcome Speech
@@ -82,3 +88,7 @@ _Date: Jul 08 2022_
 **Secretary:**  
 Er. Jane Smith  
 _Date: Jul 08 2022_
+-->
+
+## Minutes
+![Meeting Minutes](../../assets/250416_12th_ec_meeting.jpg)
