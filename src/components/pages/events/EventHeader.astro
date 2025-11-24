@@ -7,28 +7,63 @@ import CalendarWeek from "@tabler/icons/outline/calendar-week.svg";
 import MapPin from "@tabler/icons/outline/map-pin.svg";
 import World from "@tabler/icons/outline/world.svg";
 import ArrowUpRight from "@tabler/icons/outline/arrow-up-right.svg";
+import { formatDate, formatTime } from "@/utils/datetime";
 
 interface Props {
   data: CollectionEntry<"events">["data"];
-  dateDisplay: string;
-  locationDisplay: string;
-  isOnline: boolean;
-  startTimeDisplay: string;
-  endTimeDisplay: string;
-  durationDisplay: string;
-  formatDate: (date: Date) => string;
 }
 
-const {
-  data,
-  dateDisplay,
-  locationDisplay,
-  isOnline,
-  startTimeDisplay,
-  endTimeDisplay,
-  durationDisplay,
-  formatDate,
-} = Astro.props;
+const { data } = Astro.props;
+
+let dateDisplay = "";
+let durationDisplay = "";
+let startTimeDisplay = "N/A";
+let endTimeDisplay = "N/A";
+
+if (data.eventStart) {
+  const startStr = formatDate(data.eventStart);
+  const endStr = data.eventEnd ? formatDate(data.eventEnd) : startStr;
+  dateDisplay = startStr === endStr ? startStr : `${startStr} – ${endStr}`;
+
+  startTimeDisplay = formatTime(data.eventStart);
+  endTimeDisplay = data.eventEnd ? formatTime(data.eventEnd) : "N/A";
+}
+
+if (data.eventStart && data.eventEnd) {
+  const diffMs = data.eventEnd.getTime() - data.eventStart.getTime();
+  if (diffMs > 86400000) {
+    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24)) + 1;
+    durationDisplay = `${diffDays} days`;
+  } else {
+    const diffHours = diffMs / (1000 * 60 * 60);
+    const diffMins = (diffMs / (1000 * 60)) % 60;
+    if (diffHours >= 1) {
+      const hours = Math.floor(diffHours);
+      const mins = Math.round(diffMins);
+      durationDisplay = mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
+    } else {
+      durationDisplay = `${Math.round(diffMs / (1000 * 60))}m`;
+    }
+  }
+}
+
+let locationDisplay = "Location TBD";
+let isOnline = false;
+
+if (data.location) {
+  if (data.location.type === "online") {
+    locationDisplay = "Online Event";
+    isOnline = true;
+  } else {
+    const parts = [
+      data.location.venueName,
+      data.location.city,
+      data.location.state,
+    ].filter(Boolean);
+    locationDisplay = parts.join(", ") || "In-Person Event";
+    if (data.location.type === "hybrid") locationDisplay += " (Hybrid)";
+  }
+}
 ---
 
 <header class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-8 lg:gap-12 mb-12">
@@ -64,46 +99,57 @@ const {
       </div>
     </div>
 
-    <div class="flex flex-row flex-wrap justify-between">
+    <div
+      class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between w-full"
+    >
       <div
-        class="flex flex-row items-center justify-between gap-4 rounded-lg border p-4 sm:justify-start bg-card text-card-foreground w-fit"
+        class="flex w-full md:w-fit flex-row items-center justify-between gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm"
       >
         <div class="text-center">
           <span
-            class="font-mono text-xs text-muted-foreground uppercase tracking-wider"
+            class="font-mono text-xs text-muted-foreground uppercase tracking-wider block mb-0.5"
             >Start</span
           >
-          <p class="font-sans font-medium">{startTimeDisplay}</p>
+          <p class="font-sans font-medium whitespace-nowrap">
+            {startTimeDisplay}
+          </p>
         </div>
+
         {
           durationDisplay && (
             <Badge
               size={"lg"}
-              class="font-mono text-xs uppercase tracking-wider flex flex-row items-center"
+              class="flex font-mono text-xs uppercase tracking-wider flex-row items-center shrink-0"
             >
-              <CalendarWeek class="h-5 w-5 mr-2 shrink-0" />
+              <CalendarWeek class="h-4 w-4 mr-2" />
               {durationDisplay}
             </Badge>
           )
         }
+
         <div class="text-center">
           <span
-            class="font-mono text-xs text-muted-foreground uppercase tracking-wider"
+            class="font-mono text-xs text-muted-foreground uppercase tracking-wider block mb-0.5"
             >End</span
           >
-          <p class="font-sans font-medium">{endTimeDisplay}</p>
+          <p class="font-sans font-medium whitespace-nowrap">
+            {endTimeDisplay}
+          </p>
         </div>
       </div>
 
       {
         data.registrationLink && (
-          <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
-            <Button href={data.registrationLink} class="font-sans font-medium">
-              Register Now <ArrowUpRight class={"ml-2 size-4"} />
+          <div class="flex flex-col gap-3 md:items-end md:text-right">
+            <Button
+              href={data.registrationLink}
+              class="w-full md:w-auto font-sans font-medium"
+            >
+              Register Now <ArrowUpRight class="ml-2 size-4" />
             </Button>
             {data.registrationDeadline && (
-              <div class="flex items-center gap-2 font-mono text-xs text-muted-foreground uppercase tracking-wider">
-                <CalendarWeek class="h-4 w-4" />
+              <div class="flex items-center justify-center md:justify-end gap-2 font-mono text-xs text-muted-foreground uppercase tracking-wider">
+                <CalendarWeek class="h-4 w-4 shrink-0" />
                 <span>Deadline: {formatDate(data.registrationDeadline)}</span>
               </div>
             )}

@@ -1,14 +1,9 @@
 ---
 import { SITE_DESCRIPTION } from "@/consts";
 import PageLayout from "@/layouts/PageLayout.astro";
-import {
-  type CollectionEntry,
-  getCollection,
-  getEntries,
-  render,
-} from "astro:content";
-
+import { getCollection, render, type CollectionEntry } from "astro:content";
 import ArrowLeft from "@tabler/icons/outline/arrow-left.svg";
+
 import EventContact from "@/components/pages/events/EventContact.astro";
 import EventLocation from "@/components/pages/events/EventLocation.astro";
 import EventHeader from "@/components/pages/events/EventHeader.astro";
@@ -30,127 +25,6 @@ type Props = CollectionEntry<"events">;
 const event = Astro.props;
 const { data } = event;
 const { Content } = await render(event);
-
-const formatDate = (
-  date: Date | undefined,
-  options: Intl.DateTimeFormatOptions = {}
-) => {
-  if (!date) return "";
-  return date.toLocaleDateString("en-US", {
-    month: "short",
-    day: "numeric",
-    year: "numeric",
-    ...options,
-  });
-};
-
-const formatTime = (date: Date | undefined) => {
-  if (!date) return "";
-  return date.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  });
-};
-
-let dateDisplay = "";
-let durationDisplay = "";
-let startTimeDisplay = "N/A";
-let endTimeDisplay = "N/A";
-
-if (data.eventStart) {
-  const startStr = formatDate(data.eventStart);
-  const endStr = data.eventEnd ? formatDate(data.eventEnd) : startStr;
-
-  if (startStr === endStr) {
-    dateDisplay = startStr;
-  } else if (data.eventEnd) {
-    dateDisplay = `${startStr} – ${endStr}`;
-  } else {
-    dateDisplay = startStr;
-  }
-}
-
-if (data.eventStart) {
-  startTimeDisplay = formatTime(data.eventStart);
-  endTimeDisplay = data.eventEnd ? formatTime(data.eventEnd) : "N/A";
-}
-
-if (data.eventStart && data.eventEnd) {
-  const diffMs = data.eventEnd.getTime() - data.eventStart.getTime();
-  if (diffMs > 86400000) {
-    const diffDays = Math.round(diffMs / (1000 * 60 * 60 * 24)) + 1;
-    durationDisplay = `${diffDays} days`;
-  } else {
-    const diffHours = diffMs / (1000 * 60 * 60);
-    const diffMins = (diffMs / (1000 * 60)) % 60;
-    if (diffHours >= 1) {
-      const hours = Math.floor(diffHours);
-      const mins = Math.round(diffMins);
-      durationDisplay = mins > 0 ? `${hours}h ${mins}m` : `${hours}h`;
-    } else {
-      durationDisplay = `${Math.round(diffMs / (1000 * 60))}m`;
-    }
-  }
-}
-
-let locationDisplay = "Location TBD";
-let isOnline = false;
-if (data.location) {
-  if (data.location.type === "online") {
-    locationDisplay = "Online Event";
-    isOnline = true;
-  } else {
-    const parts = [
-      data.location.venueName,
-      data.location.city,
-      data.location.state,
-    ].filter(Boolean);
-    locationDisplay = parts.join(", ");
-    if (!locationDisplay) locationDisplay = "In-Person Event";
-    if (data.location.type === "hybrid") locationDisplay += " (Hybrid)";
-  }
-}
-
-const sessionsByDay: Record<string, typeof data.eventSchedule> = {};
-
-if (data.eventSchedule) {
-  data.eventSchedule.forEach((session) => {
-    const dayLabel =
-      session.dayLabel ||
-      formatDate(session.day || session.startTime, {
-        weekday: "long",
-        month: "short",
-        day: "numeric",
-      });
-    if (!sessionsByDay[dayLabel]) {
-      sessionsByDay[dayLabel] = [];
-    }
-    sessionsByDay[dayLabel]?.push(session);
-  });
-}
-const instructors = data.instructors || [];
-
-const nsaeMemberRefs = instructors
-  .filter((inst) => inst.instructorType === "nsae_member" && inst.nsaeMember)
-  .map((inst) => inst.nsaeMember!);
-
-const authorEntries = await getEntries(nsaeMemberRefs);
-type Instructor = NonNullable<
-  CollectionEntry<"events">["data"]["instructors"]
->[number];
-type ResolvedInstructor = Instructor & {
-  authorData?: CollectionEntry<"authors">["data"];
-};
-const resolvedInstructors: ResolvedInstructor[] = instructors.map((inst) => {
-  if (inst.instructorType === "nsae_member" && inst.nsaeMember) {
-    const matchingEntry = authorEntries.find(
-      (e) => e.id === inst.nsaeMember?.id
-    );
-    return { ...inst, authorData: matchingEntry?.data };
-  }
-  return inst;
-});
 ---
 
 <PageLayout title={data.title} description={data.subtitle || SITE_DESCRIPTION}>
@@ -162,16 +36,7 @@ const resolvedInstructors: ResolvedInstructor[] = instructors.map((inst) => {
       <ArrowLeft class="size-4" /> Back to All Events
     </a>
 
-    <EventHeader
-      data={data}
-      dateDisplay={dateDisplay}
-      locationDisplay={locationDisplay}
-      isOnline={isOnline}
-      startTimeDisplay={startTimeDisplay}
-      endTimeDisplay={endTimeDisplay}
-      durationDisplay={durationDisplay}
-      formatDate={formatDate}
-    />
+    <EventHeader data={data} />
 
     <hr class="my-8 border-muted" />
 
@@ -188,12 +53,11 @@ const resolvedInstructors: ResolvedInstructor[] = instructors.map((inst) => {
           </div>
         </section>
 
-        <EventSchedule sessionsByDay={sessionsByDay} formatTime={formatTime} />
+        <EventSchedule schedule={data.eventSchedule} />
       </div>
 
       <aside class="flex flex-col gap-6 lg:sticky lg:top-24 h-fit">
         <EventLocation location={data.location} />
-
         <EventInstructors instructors={data.instructors} />
         <EventContact contactPersons={data.contactPersons} />
       </aside>

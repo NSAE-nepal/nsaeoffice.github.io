@@ -1,17 +1,32 @@
 ---
+import { formatDate, formatTime } from "@/utils/datetime";
 import Clock from "@tabler/icons/outline/clock.svg";
 import MapPin from "@tabler/icons/outline/map-pin.svg";
 import User from "@tabler/icons/outline/user.svg";
 import type { CollectionEntry } from "astro:content";
 
 interface Props {
-  sessionsByDay: Record<
-    string,
-    CollectionEntry<"events">["data"]["eventSchedule"]
-  >;
-  formatTime: (date: Date) => string;
+  schedule: CollectionEntry<"events">["data"]["eventSchedule"];
 }
-const { sessionsByDay, formatTime } = Astro.props;
+const { schedule } = Astro.props;
+
+const sessionsByDay: Record<string, typeof schedule> = {};
+
+if (schedule) {
+  schedule.forEach((session) => {
+    const dayLabel =
+      session.dayLabel ||
+      formatDate(session.day || session.startTime, {
+        weekday: "long",
+        month: "short",
+        day: "numeric",
+      });
+    if (!sessionsByDay[dayLabel]) {
+      sessionsByDay[dayLabel] = [];
+    }
+    sessionsByDay[dayLabel]?.push(session);
+  });
+}
 ---
 
 {
