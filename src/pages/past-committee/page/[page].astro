@@ -51,7 +51,7 @@ const pageDescription =
       </div>
 
       <h1
-        class="anim-header-title font-sans text-5xl md:text-7xl font-medium tracking-tighter leading-tight max-w-4xl"
+        class="anim-header-title invisible font-sans text-5xl md:text-7xl font-medium tracking-tighter leading-tight max-w-4xl"
       >
         Leadership History
       </h1>
@@ -136,6 +136,7 @@ const pageDescription =
         duration: 0.8,
         ease: "back.out(1.7)",
       })
+      .set(".anim-header-title", { autoAlpha: 1 }, "-=0.4")
       .from(
         titleSplit.words,
         {
@@ -145,7 +146,7 @@ const pageDescription =
           stagger: 0.05,
           ease: "power4.out",
         },
-        "-=0.4"
+        "<"
       )
       .to(
         ".anim-header-desc",
