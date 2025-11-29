@@ -11,13 +11,13 @@ import Plus from "@tabler/icons/outline/plus.svg";
     <Badge
       variant="secondary"
       size="sm"
-      class={"font-mono text-xs uppercase tracking-widest faq-badge"}
+      class={"font-mono text-xs uppercase tracking-widest faq-badge opacity-0 translate-y-8"}
     >
       FAQ
     </Badge>
 
     <h1
-      class="font-sans text-4xl md:text-5xl font-medium tracking-tighter text-balance"
+      class="font-sans text-4xl md:text-5xl font-medium tracking-tighter text-balance opacity-0 translate-y-8"
     >
       Frequently Asked Questions
     </h1>
@@ -28,7 +28,7 @@ import Plus from "@tabler/icons/outline/plus.svg";
       <div class="space-y-4">
         {faqs.map((faq, index) => (
           <details
-            class=" p-6 group rounded-xl bg-secondary/50 border border-border/50 [&_summary::-webkit-details-marker]:hidden overflow-hidden"
+            class=" p-6 group rounded-xl bg-secondary/50 border border-border/50 [&_summary::-webkit-details-marker]:hidden overflow-hidden opacity-0 translate-y-8"
             name="faq-accordion"
           >
             <summary class="faq-summary flex cursor-pointer items-center justify-between gap-4 text-lg font-sans font-medium text-foreground marker:content-none select-none relative z-10">
@@ -87,18 +87,18 @@ import Plus from "@tabler/icons/outline/plus.svg";
       },
     });
 
-    tl.from("#faq-section .header-content > *", {
-      y: 40,
-      opacity: 0,
+    tl.to("#faq-section .header-content > *", {
+      y: 0,
+      opacity: 1,
       duration: 1,
       stagger: 0.1,
       ease: "power3.out",
     })
-      .from(
+      .to(
         "#faq-section details",
         {
-          y: 20,
-          opacity: 0,
+          y: 0,
+          opacity: 1,
           duration: 0.8,
           stagger: 0.05,
           ease: "power2.out",

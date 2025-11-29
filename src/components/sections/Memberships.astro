@@ -21,19 +21,19 @@ import GeneralMemberImg from "src/assets/mission-placeholder-3.avif";
   <div class="border-b border-border pt-32 pb-10 px-6 md:px-12 relative">
     <div class="overflow-hidden">
       <h1
-        class="text-[12vw] leading-[0.85] font-black uppercase tracking-tighter reveal-text text-foreground"
+        class="text-[12vw] leading-[0.85] font-black uppercase tracking-tighter reveal-text text-foreground opacity-0 translate-y-full"
       >
         The
       </h1>
     </div>
     <div class="overflow-hidden flex items-center gap-4 md:gap-12">
       <h1
-        class="text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent stroke-text reveal-text"
+        class="text-[12vw] leading-[0.85] font-black uppercase tracking-tighter text-transparent stroke-text reveal-text opacity-0 translate-y-full"
       >
         Circle
       </h1>
       <p
-        class="hidden md:block max-w-sm text-sm md:text-base text-muted-foreground font-mono mt-4 leading-relaxed reveal-opacity"
+        class="hidden md:block max-w-sm text-sm md:text-base text-muted-foreground font-mono mt-4 leading-relaxed reveal-opacity opacity-0"
       >
         [ EST. 1990 ] <br />
         We are an enclave of thinkers and doers. Select your level of access to the
@@ -50,7 +50,7 @@ import GeneralMemberImg from "src/assets/mission-placeholder-3.avif";
     </div>
 
     <div
-      class="group relative border-b border-border lg:border-b-0 p-6 md:p-12 flex flex-col justify-between h-[80vh] lg:h-auto hover-trigger bg-background"
+      class="group relative border-b border-border lg:border-b-0 p-6 md:p-12 flex flex-col justify-between h-[80vh] lg:h-auto hover-trigger bg-background opacity-0 translate-y-20"
     >
       <div
         class="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-700 ease-out pointer-events-none"
@@ -104,7 +104,7 @@ import GeneralMemberImg from "src/assets/mission-placeholder-3.avif";
     </div>
 
     <div
-      class="group relative p-0 overflow-hidden h-[80vh] lg:h-auto hover-trigger bg-black"
+      class="group relative p-0 overflow-hidden h-[80vh] lg:h-auto hover-trigger bg-black opacity-0 translate-y-20"
     >
       <div class="absolute inset-0 w-full h-full overflow-hidden">
         <Image
@@ -259,16 +259,17 @@ import GeneralMemberImg from "src/assets/mission-placeholder-3.avif";
     });
 
     headerTl
-      .from(".reveal-text", {
-        y: "120%",
+      .to(".reveal-text", {
+        y: 0,
+        opacity: 1,
         duration: 1.2,
         stagger: 0.1,
         ease: "power4.out",
       })
-      .from(
+      .to(
         ".reveal-opacity",
         {
-          opacity: 0,
+          opacity: 1,
           duration: 1,
           ease: "power2.out",
         },
@@ -293,9 +294,9 @@ import GeneralMemberImg from "src/assets/mission-placeholder-3.avif";
       },
     });
 
-    cardsTl.from(".hover-trigger", {
-      y: 80,
-      opacity: 0,
+    cardsTl.to(".hover-trigger", {
+      y: 0,
+      opacity: 1,
       stagger: 0.2,
       duration: 1,
       ease: "power3.out",

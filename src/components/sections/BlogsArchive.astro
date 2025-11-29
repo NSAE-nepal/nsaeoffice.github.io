@@ -35,9 +35,9 @@ if (featuredPosts.length > 0) {
 
 {
   allPublishedPosts.length > 0 && (
-    <section class="pt-24 md:pt-32">
+    <section class="blog-section pt-24 md:pt-32">
       <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-        <div class="space-y-4">
+        <div class="anim-blog-header space-y-4 opacity-0 translate-y-8">
           <Badge
             variant="secondary"
             size="sm"
@@ -52,7 +52,7 @@ if (featuredPosts.length > 0) {
 
         <a
           href="/blog/page/1"
-          class="group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors"
+          class="anim-blog-header group flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors opacity-0 translate-y-8"
         >
           View All Archives
           <ArrowRight class="size-4 transition-transform group-hover:translate-x-1" />
@@ -60,7 +60,7 @@ if (featuredPosts.length > 0) {
       </div>
       <div class="grid grid-cols-2 gap-4">
         {mainFeature && (
-          <div class="col-span-2 lg:col-span-1 bg-secondary p-4 rounded-2xl border border-border/50">
+          <div class="anim-blog-card col-span-2 lg:col-span-1 bg-secondary p-4 rounded-2xl border border-border/50 opacity-0 translate-y-12">
             <ClickableCard href={`/${mainFeature.id}/`}>
               <BlogFeaturedCard class="md:grid-cols-1" {...mainFeature} />
             </ClickableCard>
@@ -69,6 +69,7 @@ if (featuredPosts.length > 0) {
 
         <div
           class:list={[
+            "anim-blog-card opacity-0 translate-y-12",
             "col-span-2",
             mainFeature ? "lg:col-span-1" : "grid grid-cols-1  gap-4",
           ]}
@@ -96,3 +97,37 @@ if (featuredPosts.length > 0) {
     </section>
   )
 }
+
+<script>
+  import gsap from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  if (typeof window !== "undefined") {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".blog-section",
+        start: "top 75%",
+      },
+    });
+
+    tl.to(".anim-blog-header", {
+      y: 0,
+      opacity: 1,
+      duration: 0.8,
+      stagger: 0.1,
+      ease: "power3.out",
+    }).to(
+      ".anim-blog-card",
+      {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: "power2.out",
+      },
+      "-=0.4"
+    );
+  }
+</script>
