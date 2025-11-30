@@ -3,7 +3,7 @@ title: "From Stubble to Power: The Bioenergy Revolution on Farms"
 subtitle: "Turning post-harvest waste into a renewable energy asset"
 description: "How processing agricultural byproducts is creating circular energy economies and reducing reliance on fossil fuels."
 pubDate: "Jan 20 2024"
-heroImage: "../../../assets/blog-placeholder-4.jpg"
+heroImage: "../../../assets/posts/blog/blog-placeholder-4.jpg"
 authors:
   - john-smith
 categories: ["bioenergy", "post-harvest", "renewable-resources"]

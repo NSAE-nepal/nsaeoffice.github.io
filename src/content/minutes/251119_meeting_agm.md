@@ -29,14 +29,14 @@ draft: false
 
 ## 1. Welcome Speech
 
-The Chairperson, **Dr. John Doe**, welcomed all attendees to the 14th Annual General Meeting.  
+The Chairperson, **Dr. John Doe**, welcomed all attendees to the 14th Annual General Meeting.
 He expressed gratitude for the members’ continued commitment and highlighted key achievements from the previous year.
 
 ---
 
 ## 2. Annual Report Presentation
 
-The Secretary, **Er. Jane Smith**, presented the Annual Report.  
+The Secretary, **Er. Jane Smith**, presented the Annual Report.
 Key points included:
 
 - Overview of completed projects and initiatives
@@ -45,14 +45,14 @@ Key points included:
 
 Members acknowledged the efforts made throughout the year and appreciated the clarity of the report.
 
-**Resolution:**  
+**Resolution:**
 The Annual Report for the fiscal year was **unanimously accepted**.
 
 ---
 
 ## 3. Financial Audit Approval
 
-The Treasurer presented the audited financial statements for the previous fiscal year.  
+The Treasurer presented the audited financial statements for the previous fiscal year.
 The external auditor’s report confirmed:
 
 - Accurate bookkeeping
@@ -61,7 +61,7 @@ The external auditor’s report confirmed:
 
 Discussions were held regarding future budgeting priorities.
 
-**Resolution:**  
+**Resolution:**
 The audited financial statements were **approved unanimously**.
 
 ---
@@ -81,14 +81,15 @@ With no further items on the agenda, the meeting was adjourned at **3:45 PM** by
 
 ## Signatures
 
-**Chairperson:**  
-Dr. John Doe  
+**Chairperson:**
+Dr. John Doe
 _Date: Jul 08 2022_
 
-**Secretary:**  
-Er. Jane Smith  
+**Secretary:**
+Er. Jane Smith
 _Date: Jul 08 2022_
 -->
 
 ## Minutes
-![Meeting Minutes](../../assets/250416_12th_ec_meeting.jpg)
+
+![Meeting Minutes](../../assets/minutes/250416_12th_ec_meeting.jpg)

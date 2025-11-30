@@ -8,6 +8,6 @@ draft: false
 type: "notice"
 ---
 
-![Onm1](../../../assets/251011_onm.jpg)
-![Onm2](../../../assets/251011_onm2.jpg)
-![Onm3](../../../assets/251011_onm3.jpg)
+![Onm1](../../../assets/posts/notices/251011_onm.jpg)
+![Onm2](../../../assets/posts/notices/251011_onm2.jpg)
+![Onm3](../../../assets/posts/notices/251011_onm3.jpg)

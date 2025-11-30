@@ -1,0 +1,89 @@
+name: "Content Request"
+description: "Submit a request to create new content or update existing pages."
+title: "[Content]: "
+labels: ["content"]
+type: "Task"
+projects: ["NSAE-nepal/2"]
+body:
+  - type: dropdown
+    id: action-type
+    attributes:
+      label: Action Type
+      description: Are you requesting new content or an update to existing content?
+      options:
+        - Create New Content
+        - Update Existing Content
+    validations:
+      required: true
+
+  - type: input
+    id: content-title
+    attributes:
+      label: Content Title / Headline
+      description: What is the title of the content? (e.g., "Annual General Meeting Minutes" or "New Donation Guidelines")
+      placeholder: Enter the headline or page title
+    validations:
+      required: true
+
+  - type: dropdown
+    id: content-type
+    attributes:
+      label: Content Category
+      description: Select the specific section where this content belongs.
+      multiple: false
+      options:
+        - blog
+        - authors
+        - categories
+        - minutes
+        - notices
+        - news
+        - events
+        - banners
+        - careers
+        - committee
+        - faq
+        - contacts
+        - donate
+      default: 0
+    validations:
+      required: true
+
+  - type: textarea
+    id: content-description
+    attributes:
+      label: Content Details
+      description: Please provide the full text content, or describe the changes needed. If updating, please include the link to the existing page.
+      placeholder: |
+        - Goal of this content:
+        - Target Audience:
+        - Key points to cover:
+    validations:
+      required: true
+
+  - type: input
+    id: deadline
+    attributes:
+      label: Target Publication Date
+      description: When does this need to be live? (YYYY-MM-DD)
+      placeholder: ex. 2023-12-25
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 🖼️ Assets
+        If you have images, PDFs, or documents associated with this content, please drag and drop them into the "Content Details" box above or attach them in the comments after creating the issue.
+  - type: input
+    id: contact
+    attributes:
+      label: Contact Details
+      description: How can we get in touch with you if we need more info?
+      placeholder: ex. email@example.com
+    validations:
+      required: false
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the interest in creating or updating content!

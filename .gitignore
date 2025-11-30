@@ -24,4 +24,5 @@ pnpm-debug.log*
 .idea/
 
 .history
+.vscode
 public/pagefind/

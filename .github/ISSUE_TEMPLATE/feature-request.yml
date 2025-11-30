@@ -1,0 +1,68 @@
+name: "Feature Request"
+description: Suggest a new feature or an enhancement
+title: "[Feature]: "
+labels: ["enhancement"]
+type: "Feature"
+projects: ["NSAE-nepal/2"]
+body:
+  - type: textarea
+    id: feature-summary
+    attributes:
+      label: Summary
+      description: Provide a short summary of the feature you're requesting.
+      placeholder: "e.g., Add dark mode support to improve readability at night."
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-problem-statement
+    attributes:
+      label: What problem does this feature solve?
+      description: Describe the problem or limitation the feature will address.
+      placeholder: "Explain why this feature is needed."
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-proposed-solution
+    attributes:
+      label: Proposed Solution
+      description: How should the feature work? Describe your ideal solution.
+      placeholder: |
+        - Add a toggle in settings
+        - Apply dark theme styles across all pages
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature-alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or workarounds you considered.
+      placeholder: "Alternative approaches, plugins, or manual steps."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, references, mockups, or screenshots.
+      placeholder: "Screenshots, links, related issues…"
+    validations:
+      required: false
+
+  - type: input
+    id: contact
+    attributes:
+      label: Contact
+      description: How can we reach you if we need more information?
+      placeholder: "email@example.com"
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        ### 🙌 Thank you!
+        Thanks for suggesting a new feature. Your feedback helps shape the project!

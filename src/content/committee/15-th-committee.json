@@ -6,7 +6,7 @@
       "position": "president",
       "name": "Dr. Jeet Bahadur Chand",
       "prefix": ["dr"],
-      "profileImage": "../../assets/jeet_chand.png",
+      "profileImage": "../../assets/committee/jeet_chand.png",
       "portfolio": "https://example.com/portfolio/ramesh",
       "neaRegNo": "123-A"
     },
@@ -14,49 +14,49 @@
       "position": "vice-president",
       "name": "Dr. Anand Mishra",
       "prefix": ["er"],
-      "profileImage": "../../assets/anand_mishra.png"
+      "profileImage": "../../assets/committee/anand_mishra.png"
     },
     {
       "position": "secretary",
       "name": "Mr. Subash Adhikari",
       "prefix": ["mr"],
       "necRegNo": "456-B",
-      "profileImage": "../../assets/subash_adhikari.png"
+      "profileImage": "../../assets/committee/subash_adhikari.png"
     },
     {
       "position": "joint-secretary",
       "name": "Mr. Sameer Shrestha",
       "prefix": ["ms"],
-      "profileImage": "../../assets/sameer_shrestha.png"
+      "profileImage": "../../assets/committee/sameer_shrestha.png"
     },
     {
       "position": "treasurer",
       "name": "Er. Sandesh Rai",
       "prefix": ["er"],
-      "profileImage": "../../assets/sandesh_rai.png"
+      "profileImage": "../../assets/committee/sandesh_rai.png"
     },
     {
       "position": "member",
       "name": "Dr. Shiv Kumar Jha",
       "prefix": ["mr"],
-      "profileImage": "../../assets/shiv_kumar_jha.png"
+      "profileImage": "../../assets/committee/shiv_kumar_jha.png"
     },
     {
       "position": "member",
       "name": "Ms. Sangita Shrestha",
       "prefix": ["ms"],
-      "profileImage": "../../assets/sangita_shrestha.png"
+      "profileImage": "../../assets/committee/sangita_shrestha.png"
     },
     {
       "position": "member",
       "name": "Mr. Suraj Thapa",
       "prefix": ["mr"],
-      "profileImage": "../../assets/suraj_thapa.jpg"
+      "profileImage": "../../assets/committee/suraj_thapa.jpg"
     },
     {
       "position": "corporate-member",
       "name": "NAMEA",
-      "profileImage": "../../assets/namea_logo.png"
+      "profileImage": "../../assets/committee/namea_logo.png"
     }
   ]
 }

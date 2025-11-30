@@ -1,8 +1,6 @@
 ---
 import Button from "./astro/Button/Button.astro";
 import Brightness from "@tabler/icons/outline/brightness.svg";
-import NsaeLogo from "../assets/nsae_logo.jpg";
-import { Image } from "astro:assets";
 
 const today = new Date();
 ---
@@ -13,7 +11,7 @@ const today = new Date();
       <div class="flex items-center gap-2">
         <span class="text-2xl font-bold text-secondary-foreground">NSAE</span>
         <span>
-          <Image src={NsaeLogo} alt="NSAE Logo" class="h-8 w-8" />
+          <img src={"/nsae-logo.png"} alt="NSAE Logo" class="h-8 w-8" />
         </span>
       </div>
       <p class="mt-4 max-w-xs text-muted-foreground">

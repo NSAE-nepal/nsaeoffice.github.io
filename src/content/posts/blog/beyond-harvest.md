@@ -3,7 +3,7 @@ title: "Beyond the Harvest: Adding Value to Stabilize Farm Incomes"
 subtitle: "Why the future of farm economics lies in processing, not just production"
 description: "An analysis of how vertical integration and food processing technologies are protecting farmers against volatile commodity markets."
 pubDate: "Feb 10 2024"
-heroImage: ../../../assets/blog-placeholder-2.jpg
+heroImage: ../../../assets/posts/blog/blog-placeholder-2.jpg
 featured: false
 draft: true
 type: "blog"

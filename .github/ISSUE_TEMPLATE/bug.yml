@@ -1,0 +1,96 @@
+name: "Bug Report"
+description: "Report a bug or unexpected behavior to help us improve."
+title: "[Bug]: "
+labels: ["bug", "triage"]
+type: "Bug"
+projects: ["NSAE-nepal/2"]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please verify that you have searched existing issues to avoid duplicates.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Description
+      description: Briefly describe the bug. What is the current behavior vs. the expected behavior?
+      placeholder: |
+        Current Behavior: When I click the donate button, nothing happens.
+        Expected Behavior: It should open the payment modal.
+    validations:
+      required: true
+
+  - type: input
+    id: link
+    attributes:
+      label: Relevant URL
+      description: Please provide the specific URL where this bug occurs.
+      placeholder: https://example.com/donate
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to Reproduce
+      description: Please list the steps so we can reproduce the issue on our end.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Impact / Severity
+      description: How much does this affect the user experience?
+      options:
+        - Critical (Application is down or unusable)
+        - High (Core functionality is broken)
+        - Medium (Minor functionality broken or cosmetic issue)
+        - Low (Suggestion or very minor edge case)
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment Details
+      description: Mandatory for debugging. Please list your device, OS, and browser.
+      placeholder: |
+        - Device: (e.g. iPhone 13, Desktop PC)
+        - OS: (e.g. iOS 16, Windows 11, Ubuntu 22.04)
+        - Browser: (e.g. Chrome, Safari, Firefox)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Error Messages
+      description: Paste any error logs from the browser console (F12) or server logs.
+      render: shell
+      placeholder: "Uncaught TypeError: Cannot read properties of undefined..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots / Screen Recording
+      description: A picture is worth a thousand words. Drag and drop images here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Checklist
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate.
+          required: true
