@@ -57,6 +57,7 @@ if (data.location) {
   } else {
     const parts = [
       data.location.venueName,
+      data.location.address,
       data.location.city,
       data.location.state,
     ].filter(Boolean);
@@ -103,7 +104,7 @@ if (data.location) {
       class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between w-full"
     >
       <div
-        class="flex w-full md:w-fit flex-row items-center justify-between gap-6 rounded-lg border bg-card p-4 text-card-foreground shadow-sm"
+        class="flex w-full md:w-fit flex-row items-center justify-between gap-6 rounded-lg border bg-card p-4 text-card-foreground"
       >
         <div class="text-center">
           <span

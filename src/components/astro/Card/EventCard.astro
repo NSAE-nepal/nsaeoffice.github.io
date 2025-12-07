@@ -113,9 +113,13 @@ const isOnline =
           }
         </p>
         {
-          data.location?.city && (
+          (data.location?.address ||
+            data.location?.city ||
+            data.location?.state) && (
             <p class="font-mono text-xs text-muted-foreground/70 tracking-wide">
-              {data.location.city}
+              {[data.location.address, data.location.city, data.location.state]
+                .filter(Boolean)
+                .join(", ")}
             </p>
           )
         }

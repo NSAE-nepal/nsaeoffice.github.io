@@ -11,117 +11,77 @@ location:
   address: "Pulchok"
   city: "Kathmandu"
   mapsLink: "https://maps.app.goo.gl/WxyhPnn4c3ePuxTP8"
-  # meetingUrl: "https://teams.microsoft.com/l/meetup-join/example"
-  # meetingId: "123 456 789"
-  # meetingPassword: "nsae-webinar"
 
 instructors:
   - instructorType: "nsae_member"
     nsaeMember: "jeet-bahadur-chand"
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Arjun Luitel"
-    externalPosition: "G7 Agriculture Pvt.Ltd."
-    externalBio: ""
+    name: "Arjun Luitel"
+    position: "Managing Director"
+    company: "G7 Agriculture Pvt.Ltd."
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Khojraj Katuwal"
-    externalPosition: "NTS Industries Pvt.Ltd."
-    externalBio: ""
+    name: "Khojraj Katuwal"
+    position: "Director"
+    company: "NTS Industries Pvt.Ltd."
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Krishna Sharma"
-    externalPosition: "SKT Nepal Pvt. Ltd."
-    externalBio: ""
+    name: "Krishna Sharma"
+    position: "Director"
+    company: "SKT Nepal Pvt. Ltd."
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Phekon Mahato"
-    externalPosition: "Nepcool Industries Pvt. Ltd."
-    externalBio: ""
+    name: "Phekon Mahato"
+    position: "Chairman"
+    company: "Nepcool Industries Pvt. Ltd."
+    eventRole: "speaker"
     
   - instructorType: "external_person"
-    externalName: "Bhupendra Dev Bhatt"
-    externalPosition: "Vibrant Technical Concern Pvt. Ltd."
-    externalBio: ""
+    name: "Er. Bhupendra Dev Bhatt"
+    position: "Chairperson"
+    company: "Vibrant Technical Concern Pvt. Ltd."
+    eventRole: "speaker"
     
   - instructorType: "external_person"
-    externalName: "Gaurab Dulal"
-    externalPosition: "Muktinath Krishi Company Ltd."
-    externalBio: ""
+    name: "Gaurab Dulal"
+    company: "Muktinath Krishi Company Ltd."
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Shree Krishna Adhikari"
-    externalPosition: "Salom Agriculture Pvt. Ltd."
-    externalBio: ""
+    name: "Shree Krishna Adhikari"
+    position: "Managing Director"
+    company: "Salom Agriculture Pvt. Ltd."
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Sarvesh Mainali"
-    externalPosition: "Karma Groups of Companies"
-    externalBio: ""
+    name: "Sarvesh Mainali"
+    position: "Business Development Manager"
+    company: "Karma Groups of Companies"
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Sagar kafle"
-    externalPosition: "CIMMYT International"
-    externalBio: ""
+    name: "Sagar kafle"
+    company: "CIMMYT International"
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Jibesh KC"
-    externalPosition: "IWMI Nepal"
-    externalBio: ""
+    name: "Jibesh KC"
+    company: "IWMI Nepal"
+    eventRole: "speaker"
 
   - instructorType: "external_person"
-    externalName: "Er. Rabindra K Karki"
-    externalPosition: "IDE Nepal"
-    externalBio: ""
-
-# eventSchedule:
-#   - day: 2025-08-20
-#     dayLabel: "Day 1"
-#     sessionTitle: "Opening Ceremony"
-#     startTime: 2025-08-20 09:00:00
-#     endTime: 2025-08-20 10:30:00
-#     location: "Main Hall"
-#     description: "Inauguration by the Minister of Physical Infrastructure."
-
-#   - day: 2025-08-20
-#     dayLabel: "Day 1"
-#     sessionTitle: "Technical Track A: Earthquake Resistant Design"
-#     startTime: 2025-08-20 11:00:00
-#     endTime: 2025-08-20 13:00:00
-#     speaker: "Prof. Dr. Earthquake Expert"
-#     location: "Hall B"
-
-#   - day: 2025-08-21
-#     dayLabel: "Day 2"
-#     sessionTitle: "Panel Discussion: AI in Construction"
-#     startTime: 2025-08-21 14:00:00
-#     endTime: 2025-08-21 15:30:00
-#     location: "Main Hall"
-
-# contactPersons:
-#   - name: "Conf. Secretariat"
-#     email: "conference@nsae.org.np"
-#     isPrimary: true
-#   - name: "Support Desk"
-#     email: "support@nsae.org.np"
-#     phone: "01-4200000"
-
+    name: "Er. Rabindra K Karki"
+    company: "IDE Nepal"
+    eventRole: "speaker"
+  
 draft: false
 ---
-<!-- 
-## Event Details
 
-The **National Engineering Conference 2025** brings together professionals, academicians, and policymakers.
-
-### Call for Papers
-
-We are currently accepting papers on the following themes:
-
-1. Green Building precision-agriculture
-2. Smart City Planning
-3. Disaster Risk Management
-
-> **Note:** Virtual attendees will receive the Zoom link 24 hours prior to the event via email. -->
 
 ![Speakers](../../assets/events/career-counselling-2025/career-counselling-2025-speakers.jpeg)
 

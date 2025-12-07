@@ -399,27 +399,51 @@ const locationSchema = z.object({
   meetingId: z.string().optional(),
 });
 
+const socialsSchema = z.object({
+  linkedin: z.string().url().optional(),
+  x: z.string().url().optional(),
+  facebook: z.string().url().optional(),
+  website: z.string().url().optional(),
+});
+
 const instructorSchema = (image: any) =>
-  z.object({
-    instructorType: z
-      .enum(["nsae_member", "external_person", "organization"])
-      .default("nsae_member"),
-    nsaeMember: reference("authors").optional(),
-    externalName: z.string().optional(),
-    externalPosition: z.string().optional(),
-    externalBio: z.string().optional(),
-    organizationName: z.string().optional(),
-    organizationWebsite: z.string().url().optional(),
-    organizationRepresentatives: z
-      .array(
-        z.object({
-          name: z.string(),
-          position: z.string().optional(),
-        })
-      )
-      .optional(),
-    photo: image().optional(),
-  });
+  z.discriminatedUnion("instructorType", [
+    z.object({
+      instructorType: z.literal("nsae_member"),
+      nsaeMember: reference("authors"),
+      eventRole: z.enum(["speaker", "panelist", "moderator", "guest", "instructor"]).default("instructor"),
+    }),
+
+    z.object({
+      instructorType: z.literal("external_person"),
+      name: z.string(),
+      position: z.string().optional(),
+      company: z.string().optional(),
+      bio: z.string().optional(),
+      profileImage: image().optional(),
+      socials: socialsSchema.optional(),
+      eventRole: z.enum(["speaker", "panelist", "moderator", "guest", "instructor"]).default("instructor"),
+    }),
+
+    z.object({
+      instructorType: z.literal("organization"),
+      organizationName: z.string(),
+      website: z.string().url().optional(),
+      logo: image().optional(), 
+      description: z.string().optional(),
+      representatives: z
+        .array(
+          z.object({
+            name: z.string(),
+            position: z.string().optional(),
+            email: z.string().email().optional(),
+            eventRole: z.enum(["speaker", "panelist", "moderator", "guest", "instructor"]).default("instructor"),
+          })
+        )
+        .optional(),
+    }),
+  ]);
+
 const contactPersonSchema = z.object({
   name: z.string(),
   role: z.string().optional(),
@@ -429,9 +453,7 @@ const contactPersonSchema = z.object({
 });
 
 const bannersCollection = defineCollection({
-  // Load Markdown and MDX files in the `src/content/banners/` directory.
   loader: glob({ base: "./src/content/banners", pattern: "**/*.{md,mdx}" }),
-  // Type-check frontmatter using a schema
   schema: ({ image }) =>
     z
       .object({

@@ -1,6 +1,7 @@
 ---
 import User from "@tabler/icons/outline/user.svg";
 import Building from "@tabler/icons/outline/building.svg";
+import World from "@tabler/icons/outline/world.svg";
 import { Image } from "astro:assets";
 import { getEntries, type CollectionEntry } from "astro:content";
 
@@ -8,77 +9,236 @@ interface Props {
   instructors: CollectionEntry<"events">["data"]["instructors"];
 }
 
-const { instructors = [] } = Astro.props;
-
-const nsaeMemberRefs = instructors
-  .filter((inst) => inst.instructorType === "nsae_member" && inst.nsaeMember)
-  .map((inst) => inst.nsaeMember!);
-
-const authorEntries = await getEntries(nsaeMemberRefs);
-
-type Instructor = NonNullable<
+type InstructorItem = NonNullable<
   CollectionEntry<"events">["data"]["instructors"]
 >[number];
-type ResolvedInstructor = Instructor & {
-  authorData?: CollectionEntry<"authors">["data"];
-};
 
-const resolvedInstructors: ResolvedInstructor[] = instructors.map((inst) => {
-  if (inst.instructorType === "nsae_member" && inst.nsaeMember) {
-    const matchingEntry = authorEntries.find(
-      (e) => e.id === inst.nsaeMember?.id
-    );
-    return { ...inst, authorData: matchingEntry?.data };
+const { instructors: rawInstructors } = Astro.props;
+
+const instructors: InstructorItem[] = rawInstructors ?? [];
+
+interface Representative {
+  name: string;
+  position?: string;
+  email?: string;
+  eventRole: "speaker" | "panelist" | "moderator" | "guest" | "instructor";
+}
+
+interface DisplayProfile {
+  id: string;
+  name: string;
+  role: string;
+  position?: string;
+  company?: string;
+  website?: string;
+  image?: ImageMetadata;
+  isOrg: boolean;
+  representatives?: Representative[];
+}
+
+const nsaeMemberRefs = instructors
+  .filter((inst) => inst.instructorType === "nsae_member")
+  .map((inst) => inst.nsaeMember);
+
+const authorEntries =
+  nsaeMemberRefs.length > 0 ? await getEntries(nsaeMemberRefs) : [];
+
+const displayProfiles: DisplayProfile[] = instructors.map((inst, index) => {
+  const uniqueId = `inst-${index}`;
+
+  if (inst.instructorType === "nsae_member") {
+    const memberInst = inst as Extract<
+      InstructorItem,
+      { instructorType: "nsae_member" }
+    >;
+    const author = authorEntries.find((a) => a.id === memberInst.nsaeMember.id);
+
+    if (author) {
+      return {
+        id: uniqueId,
+        name: author.data.name,
+        role: memberInst.eventRole || "Instructor",
+        position: author.data.position || "NSAE Member",
+        company: author.data.company,
+        image:
+          typeof author.data.profileImage === "string"
+            ? undefined
+            : author.data.profileImage,
+        isOrg: false,
+      };
+    }
+    return {
+      id: uniqueId,
+      name: "Unknown Member",
+      role: "Unknown",
+      isOrg: false,
+    };
   }
-  return inst;
+
+  if (inst.instructorType === "organization") {
+    const orgInst = inst as Extract<
+      InstructorItem,
+      { instructorType: "organization" }
+    >;
+
+    return {
+      id: uniqueId,
+      name: orgInst.organizationName,
+      role: "Partner Organization",
+      position: orgInst.description,
+      website: orgInst.website,
+      company: undefined,
+      image: orgInst.logo,
+      isOrg: true,
+      representatives: orgInst.representatives as Representative[] | undefined,
+    };
+  }
+
+  const externalInst = inst as Extract<
+    InstructorItem,
+    { instructorType: "external_person" }
+  >;
+
+  return {
+    id: uniqueId,
+    name: externalInst.name,
+    role: externalInst.eventRole || "Instructor",
+    position: externalInst.position,
+    company: externalInst.company,
+    image: externalInst.profileImage,
+    isOrg: false,
+  };
 });
 ---
 
 {
-  resolvedInstructors && resolvedInstructors.length > 0 && (
-    <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
+  displayProfiles.length > 0 && (
+    <div class="rounded-lg border bg-card text-card-foreground">
       <div class="p-6">
-        <h3 class="font-sans text-xl font-medium tracking-tight mb-4">
+        <h3 class="font-sans text-xl font-medium tracking-tight mb-6">
           Instructors & Speakers
         </h3>
-        <div class="flex flex-col gap-4">
-          {resolvedInstructors.map((instructor) => {
-            let name = instructor.externalName;
-            let position = instructor.externalPosition || "Instructor";
-            let imageSrc = instructor.photo;
 
-            if (
-              instructor.instructorType === "nsae_member" &&
-              instructor.authorData
-            ) {
-              name = instructor.authorData.name;
-              position = instructor.authorData.position || "NSAE Member";
-              imageSrc = instructor.authorData.profileImage;
-            } else if (instructor.instructorType === "organization") {
-              name = instructor.organizationName;
-              position = "Organization";
+        <div class="flex flex-col gap-8">
+          {displayProfiles.map((profile) => {
+            if (profile.isOrg) {
+              return (
+                <div>
+                  <div class="flex items-start gap-4 group">
+                    <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full flex items-center justify-center border border-border/50 bg-background">
+                      {profile.image ? (
+                        <Image
+                          src={profile.image}
+                          alt={profile.name}
+                          class="h-full w-full object-contain p-1.5 transition-transform duration-300 group-hover:scale-110"
+                        />
+                      ) : (
+                        <Building class="size-6 text-muted-foreground/50" />
+                      )}
+                    </div>
+
+                    <div class="flex-1 min-w-0 pt-0.5">
+                      <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                        <h4 class="font-sans font-medium text-sm leading-none">
+                          {profile.name}
+                        </h4>
+                        <span class="font-mono uppercase tracking-wider text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                          Organization
+                        </span>
+                      </div>
+
+                      <div class="flex flex-col mt-1 gap-1">
+                        {profile.position && (
+                          <p class="font-sans text-xs text-muted-foreground line-clamp-2">
+                            {profile.position}
+                          </p>
+                        )}
+                        {profile.website && (
+                          <a
+                            href={profile.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center gap-1 text-xs text-primary/80 hover:text-primary w-fit hover:underline"
+                          >
+                            <World class="size-3" />
+                            <span>Visit Website</span>
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  {profile.representatives &&
+                    profile.representatives.length > 0 && (
+                      <div class="mt-4 flex flex-col gap-3 pl-6 border-l-2 border-muted ml-6">
+                        {profile.representatives.map((rep) => (
+                          <div class="flex items-start gap-3 group/rep">
+                            <div class="relative h-8 w-8 shrink-0 overflow-hidden rounded-full flex items-center justify-center border border-border/50 bg-background">
+                              <User class="size-4 text-muted-foreground/50" />
+                            </div>
+
+                            <div class="flex-1 min-w-0 pt-0.5">
+                              <div class="flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                                <p class="text-sm font-medium leading-tight">
+                                  {rep.name}
+                                </p>
+                                <span class="font-mono uppercase tracking-wider text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                                  {rep.eventRole}
+                                </span>
+                              </div>
+                              {rep.position && (
+                                <p class="text-xs text-muted-foreground mt-0.5 line-clamp-1 font-sans">
+                                  {rep.position}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                </div>
+              );
             }
 
             return (
-              <div class="flex items-center gap-3">
-                <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-full bg-muted flex items-center justify-center">
-                  {imageSrc && typeof imageSrc === "object" ? (
+              <div class="flex items-start gap-4 group">
+                <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-full bg-muted flex items-center justify-center border border-border/50">
+                  {profile.image ? (
                     <Image
-                      src={imageSrc}
-                      alt={name || ""}
-                      class="aspect-square h-full w-full object-cover"
+                      src={profile.image}
+                      alt={profile.name}
+                      class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-110"
                     />
-                  ) : instructor.instructorType === "organization" ? (
-                    <Building class="size-4 text-muted-foreground" />
                   ) : (
-                    <User class={"size-4 text-muted-foreground"} />
+                    <User class="size-6 text-muted-foreground/50" />
                   )}
                 </div>
-                <div class="text-sm">
-                  <p class="font-sans font-medium">{name}</p>
-                  <p class="font-sans text-muted-foreground text-xs">
-                    {position}
-                  </p>
+
+                <div class="flex-1 min-w-0 pt-0.5">
+                  <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
+                    <p class="font-sans font-medium text-sm leading-none">
+                      {profile.name}
+                    </p>
+                    <span class="font-mono uppercase tracking-wider text-[10px] px-1.5 py-0.5 rounded bg-muted text-muted-foreground font-medium">
+                      {profile.role}
+                    </span>
+                  </div>
+
+                  <div class="flex flex-col mt-1">
+                    <p class="font-sans text-muted-foreground text-xs line-clamp-1">
+                      {profile.position && (
+                        <span class="capitalize">{profile.position}</span>
+                      )}
+                      {profile.company && profile.position && (
+                        <span class="mx-1.5 opacity-40">•</span>
+                      )}
+                      {profile.company && (
+                        <span class="font-medium text-foreground/80">
+                          {profile.company}
+                        </span>
+                      )}
+                    </p>
+                  </div>
                 </div>
               </div>
             );

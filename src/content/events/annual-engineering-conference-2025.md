@@ -1,6 +1,6 @@
 ---
 title: "International Conference 2026"
-subtitle: "on agricultural engineering and climate smart agriculture"
+subtitle: "On agricultural engineering and climate smart agriculture"
 coverImage: "../../assets/events/conference-banner.jpeg"
 eventStart: 2026-02-05T09:00:00+05:45
 eventEnd: 2026-02-06T17:00:00+05:45
