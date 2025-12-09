@@ -95,10 +95,11 @@ import GeneralMemberImg from "src/assets/pages/mission-placeholder-3.avif";
 
       <div class="relative z-10 pt-12">
         <a
-          href="#"
+          href="https://ee-eu.kobotoolbox.org/x/Twh4OJxL"
+          target="_blank"
           class="inline-flex items-center gap-4 text-lg uppercase tracking-widest hover:gap-8 transition-all duration-500 text-foreground group-hover:text-primary"
         >
-          Initiate <ArrowRight class="w-5 h-5" />
+          Join Us <ArrowRight class="w-5 h-5" />
         </a>
       </div>
     </div>
@@ -156,11 +157,35 @@ import GeneralMemberImg from "src/assets/pages/mission-placeholder-3.avif";
           </ul>
         </div>
 
-        <div class="flex justify-end">
+        <div class="flex justify-end items-end">
           <div
-            class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground scale-100 lg:scale-0 group-hover:scale-100 transition-transform duration-500 ease-back-out"
+            class="relative flex items-center justify-center scale-100 lg:scale-0 group-hover:scale-100 transition-transform duration-500 ease-back-out m-4"
           >
-            <ArrowRight class="w-6 h-6 -rotate-45" />
+            <div
+              class="absolute w-32 h-32 animate-spin-slow pointer-events-none select-none"
+            >
+              <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible">
+                <path
+                  id="circlePath"
+                  d="M 50, 50 m -36, 0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0"
+                  fill="none"></path>
+                <text
+                  class="fill-white font-mono text-[9.5px] font-bold uppercase tracking-[0.2em]"
+                >
+                  <textPath href="#circlePath" startOffset="0%">
+                    Join Us • Join Us • Join Us •
+                  </textPath>
+                </text>
+              </svg>
+            </div>
+
+            <a
+              href="https://ee-eu.kobotoolbox.org/x/Twh4OJxL"
+              target="_blank"
+              class="relative z-10 w-16 h-16 rounded-full bg-primary flex items-center justify-center text-primary-foreground transition-transform duration-300 hover:scale-110"
+            >
+              <ArrowRight class="w-6 h-6 -rotate-45" />
+            </a>
           </div>
         </div>
       </div>
@@ -208,6 +233,18 @@ import GeneralMemberImg from "src/assets/pages/mission-placeholder-3.avif";
     }
     100% {
       transform: translateX(-50%);
+    }
+  }
+  .animate-spin-slow {
+    animation: spin 12s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
     }
   }
 </style>
