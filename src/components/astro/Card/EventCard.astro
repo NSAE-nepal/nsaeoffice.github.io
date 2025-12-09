@@ -128,8 +128,13 @@ const isOnline =
 
     {
       data.registrationLink && (
-        <div class="pt-2">
-          <Button href={data.registrationLink} class="font-sans font-medium">
+        <div class="pt-2" onclick="event.stopPropagation()">
+          <Button
+            href={data.registrationLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-sans font-medium"
+          >
             Register Now
             <ArrowUpRight class={"ml-2 size-4"} />
           </Button>
